@@ -6,15 +6,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This app is powered by the excellent [Magic the Gathering API](https://magicthegathering.io/)
 
-For the backend (express server), visit [this github page](https://github.com/)
+For the backend (express server), visit [this github page](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server)
 
 ## User Story 
 
-### Does Not Require Account  
-* User can search the MTG database by card name as well as set, cardtype, and format. These results can then be filtered by color and converted mana cost. (Does not require log in)
-* User can view details on any card result. (Does not require log in)
+#### Does Not Require Account  
+* User can search the MTG database by card name as well as set, cardtype, and format. These results can then be filtered by color and converted mana cost. 
+* User can view details on any card result. 
 
-### Requires Account 
+#### Requires Account 
 * User can save cards to their personal card pool 
 * User can view and sort cards in their card pool 
 * User can add notes and pre-set card tags to their cards 
@@ -28,16 +28,17 @@ For the backend (express server), visit [this github page](https://github.com/)
 
 Available in the "wireframes" directory. 
 
-[Overview](docs/wireframes/00-birds-eye.png)
+Overview: 
+![Overview](wireframes/00-birds-eye.png)
 
 
 ## API Documentation and Models
 
 For full API documentation see the docs at the [MTG API](https://docs/magicthegathering.io/).
 
-For the endpoints used in this app, specifically, see the README of the server built for this app using express, [here](https://github.com/). 
+For the endpoints used in this app, specifically, see the README of the server built for this app using express, [here](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server). 
 
-The documentation of the Mongo database models used for this project can also be found in the README of the [server](https://github.com/).
+The documentation of the Mongo database models used for this project can also be found in the README of the [server](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server).
 
 
 ## Express Boilerplate 
