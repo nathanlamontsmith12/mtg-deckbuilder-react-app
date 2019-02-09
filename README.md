@@ -8,6 +8,14 @@ This app is powered by the excellent [Magic the Gathering API](https://magictheg
 
 For the backend (express server), visit [this github page](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server)
 
+## API Documentation and Models
+
+For full API documentation see the docs at the [MTG API](https://docs/magicthegathering.io/).
+
+For the endpoints used in this app, specifically, see the README of the server built for this app using express, [here](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server). 
+
+The documentation of the Mongo database models used for this project can also be found in the README of the [server](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server).
+
 ## User Story 
 
 #### Does Not Require Account  
@@ -31,15 +39,40 @@ Available in the "wireframes" directory.
 Overview: 
 ![Overview](wireframes/00-birds-eye.png)
 
+### "Smart" (Stateful) Container Components 
 
-## API Documentation and Models
+Search (Home):
+![Search-Home](wireframes/01-home-search-container.png)
 
-For full API documentation see the docs at the [MTG API](https://docs/magicthegathering.io/).
+Authorization:
+![Authorization](wireframes/02-auth-container.png)
 
-For the endpoints used in this app, specifically, see the README of the server built for this app using express, [here](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server). 
+User Dashboard: 
+![User Dashboard](wireframes/03-user-dashboard-container.png)
 
-The documentation of the Mongo database models used for this project can also be found in the README of the [server](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server).
+Deck View/Edit: 
+![Deck View and Edit](wireframes/04-deck-view-edit-container.png)
 
+
+### "Dumb" (Stateless) Presentational Components 
+
+About this App "Page":
+![About this App](wireframes/05-about-presentational.png)
+
+LoginForm (Modal LogIn/Register):
+![Form for Log In or Register](wireframes/06-LoginForm-presentational.png)
+
+CardSheet: 
+![Card list](wireframes/07-CardSheet-presentational.png)
+
+CardView (Modal On/Off):
+![Card detail view](wireframes/08-CardView-presentational.png)
+
+DeckList:
+![Deck list](wireframes/09-DeckList-presentational.png)
+
+DeckView: 
+![Deck detail view](wireframes/10-DeckView-presentational.png)
 
 ## Express Boilerplate 
 
