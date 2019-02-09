@@ -1,4 +1,4 @@
-# Magic The Gathering Deckbuilder 
+# Magic: The Gathering Deckbuilder App 
 
 ## React Frontend
 
@@ -10,7 +10,7 @@ For the backend (express server), visit [this github page](https://github.com/na
 
 ## API Documentation and Models
 
-For full API documentation see the docs at the [MTG API](https://docs/magicthegathering.io/).
+For full API documentation see the docs at the [MTG API](https://docs.magicthegathering.io/).
 
 For the endpoints used in this app, specifically, see the README of the server built for this app using express, [here](https://github.com/nathanlamontsmith12/mtg-deckbuilder-server). 
 
@@ -41,37 +41,37 @@ Overview:
 
 ### "Smart" (Stateful) Container Components 
 
-Search (Home):
+#### Search (Home):
 ![Search-Home](wireframes/01-home-search-container.png)
 
-Authorization:
+#### Authorization:
 ![Authorization](wireframes/02-auth-container.png)
 
-User Dashboard: 
+#### User Dashboard: 
 ![User Dashboard](wireframes/03-user-dashboard-container.png)
 
-Deck View/Edit: 
+#### Deck View/Edit: 
 ![Deck View and Edit](wireframes/04-deck-view-edit-container.png)
 
 
 ### "Dumb" (Stateless) Presentational Components 
 
-About this App "Page":
+#### About this App "Page":
 ![About this App](wireframes/05-about-presentational.png)
 
-LoginForm (Modal LogIn/Register):
+#### LoginForm (Modal LogIn/Register):
 ![Form for Log In or Register](wireframes/06-LoginForm-presentational.png)
 
-CardSheet: 
+#### CardSheet: 
 ![Card list](wireframes/07-CardSheet-presentational.png)
 
-CardView (Modal On/Off):
+#### CardView (Modal On/Off): 
 ![Card detail view](wireframes/08-CardView-presentational.png)
 
-DeckList:
+#### DeckList:
 ![Deck list](wireframes/09-DeckList-presentational.png)
 
-DeckView: 
+#### DeckView: 
 ![Deck detail view](wireframes/10-DeckView-presentational.png)
 
 ## Express Boilerplate 
