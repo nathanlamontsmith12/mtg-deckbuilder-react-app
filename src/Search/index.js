@@ -6,6 +6,8 @@ class Search extends Component {
 	constructor(props){
 		super();
 		this.state = {
+			loggedIn: props.authData.loggedIn,
+			loggedInAs: props.authData.loggedInAs,
 			results: null,
 			searching: false,
 			searched: false,

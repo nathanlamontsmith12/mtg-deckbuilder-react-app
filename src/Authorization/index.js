@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import LoginForm from "../LoginForm";
 
 class Authorization extends Component {
-	constructor(){
+	constructor(props){
 		super();
 		this.state = {
+			loggedIn: props.authData.loggedIn,
+			loggedInAs: props.authData.loggedInAs,
 			inputFailMessage: "",
-			loggedIn: false,
-			loggedInAs: "",
-			reg: false,
 			username: "",
 			password: "",
 			passwordConfirm: "",
-			email: ""
+			email: "",
+			reg: false
 		}
 	}
 	loginView = () => {
@@ -40,84 +40,130 @@ class Authorization extends Component {
 			[evt.currentTarget.name]: evt.currentTarget.value
 		})
 	}
-	logIn = () => {
-		if (!this.state.username || !this.state.password) {
-			this.setState({
-				inputFailMessage: "Invalid Username and/or Password",
-				loggedIn: false,
-				loggedInAs: "",
-				username: "",
-				password: "",
-				passwordConfirm: "",
-				email: ""
-			})
-			return
+	fail = (failMessage) => {
+		
+		let message;
+
+		if (!failMessage) {
+			message = ""
+		} else {
+			message = failMessage
 		}
-
-		// communicate w/ back end 
-			// CODE 
-
-		// set frontend state to logged in
-		this.setLogIn()
-	}
-	createNewAccount = () => {
-		if (!this.state.username || !this.state.password) {
-			this.setState({
-				inputFailMessage: "Invalid Username and/or Password", 
-				loggedIn: false,
-				loggedInAs: "",
-				username: "",
-				password: "",
-				passwordConfirm: "",
-				email: ""
-			})
-			return
-		} 
-		if (!this.state.email) {
-			this.setState({
-				inputFailMessage: "Invalid Email Address",
-				loggedIn: false,
-				loggedInAs: "",
-				username: "",
-				password: "",
-				passwordConfirm: "",
-				email: ""
-			})
-		}
-		if (this.state.password !== this.state.passwordConfirm) {
-			this.setState({
-				inputFailMessage: "Password Confirmation must match Password",
-				loggedIn: false,
-				loggedInAs: "",
-				username: "",
-				password: "",
-				passwordConfirm: "",
-				email: ""
-			})
-			return
-		}
-
-		// Communicate w/ back end
-			// CODE 
-
-		// set frontend state to logged in
-		this.setLogIn();
-	}
-	setLogIn = () => {
-		const currentUser = this.state.username 
 
 		this.setState({
-			loggedIn: true,
-			loggedInAs: currentUser,
+			inputFailMessage: message,
 			username: "",
 			password: "",
 			passwordConfirm: "",
 			email: ""
 		})
+
+		this.props.setLogOut();
+	}
+	success = (username) => {
+		this.setState({
+			inputFailMessage: "",
+			username: "",
+			password: "",
+			passwordConfirm: "",
+			email: ""
+		})
+
+		this.props.setLogIn();
+	}
+	logIn = async () => {
+		try {
+
+			// quick user input checking on frontend: 
+			if (!this.state.username || !this.state.password) {
+				this.fail("Invalid username and/or password");
+				return
+			}
+
+			// communicate w/ back end; set body, stringify, fetch: 
+			const body = {
+				username: this.state.username, 
+				password: this.state.password
+			}
+
+			const bodyString = JSON.stringify(body);
+
+			const response = await fetch("http://localhost:9000/auth", {
+				method: "POST",
+				body: bodyString,
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json"					
+				}
+			})
+			
+
+			// set frontend state to logged in, if everything checks out 
+			if(!response.ok) {
+				throw Error(response.statusText)
+			} else {
+				this.success();
+			}
+		} catch (err) {
+			console.log(err);
+			this.fail("Failed to Log In");
+			return err
+		}
+	}
+	createNewAccount = async () => {
+		try {
+
+			// quick input checks on frontend: 
+			if (!this.state.username || !this.state.password) {
+				this.fail("Invalid username and/or password");
+				return
+			} 
+		
+			if (!this.state.email) {
+				this.fail("Invalid email address input");
+				return
+			}
+
+			if (this.state.password !== this.state.passwordConfirm) {
+				this.fail("Password must match Password confirmation");
+				return
+			}
+
+
+			// Communicate w/ back end -- set body, stringify, fetch: 
+			const body = {
+				username: this.state.username, 
+				password: this.state.password, 
+				email: this.state.email,
+				registered: Date.now()
+			}
+
+			const bodyString = JSON.stringify(body);
+			
+			const response = await fetch("http://localhost:9000/user", {
+				method: "POST",
+				body: bodyString,
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json"					
+				}
+			})
+
+
+			// set frontend state to logged in if everything checks out 
+			if(!response.ok) {
+				throw Error(response.statusText)
+			} else {
+				this.success();
+			}
+		
+		} catch (err) {
+			console.log(err);
+			this.fail("Failed to Create New Account");
+			return err
+		}
 	}
 	render(){
-
-		console.log(this.state);
 
 		const notLoggedIn =	
 			<div>
