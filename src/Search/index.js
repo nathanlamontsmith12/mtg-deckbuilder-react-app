@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import CardSheet from "../CardSheet";
+import CardView from "../CardView"
 
 class Search extends Component {
 	constructor(props){
 		super();
 		this.state = {
-			results: "",
+			results: null,
 			searching: false,
 			searched: false,
-			query: ""
+			query: "",
+			view: null
 		}
 	}
 	handleQueryInput = (evt) => {
@@ -30,6 +32,18 @@ class Search extends Component {
 		}
 
 		this.getCards(cardQueryObject);
+	}
+	defaultView = (btnId) => {
+
+		// reset opacity to 1 of the button: 
+
+		const thisButton = document.getElementById(btnId);
+
+		thisButton.style.opacity = "1";
+
+		this.setState({
+			view: null
+		})
 	}
 	getCards = async (query) => {
 		try{
@@ -53,24 +67,62 @@ class Search extends Component {
 
 			const cardsParsed = await JSON.parse(responseParsed.data.text);
 
+			const newCardArray = cardsParsed.cards.filter((card)=>{
+				if (card.imageUrl) {
+					return true
+				} else {
+					return false
+				}
+			})
+
 			this.setState({
 				searching: false,
 				searched: true,
-				results: cardsParsed
+				results: newCardArray
 			})
 		} catch (err) {
 			console.log(err);
 			return err;
 		}
 	}
+	viewCard = (id) => {
+
+		// if there was a previous viewed card, reset its view button to opacity 1: 
+
+		if (this.state.view) {
+			const lastBtn = document.getElementById(this.state.view.id)
+			lastBtn.style.opacity = "1" 
+		}
+
+		// find card to view: 
+
+		const cardToView = this.state.results.find((card)=>{
+			if (card.id === id) {
+				return true
+			} else {
+				return false
+			}
+		})
+
+		// make button opaque -- button ID was set to Card ID so this is easy to find: 
+
+		const thisButton = document.getElementById(id);
+
+		thisButton.style.opacity = "0.3";
+
+		this.setState({
+			view: {name: cardToView.name, url: cardToView.imageUrl, id: id}
+		})
+	}
 	render(){
 		return(
 			<div>
+				{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} /> : null }
 				<h1>SEARCH FOR CARDS BY NAME</h1>
 				<input name="query" value={this.state.query} onChange={this.handleQueryInput} />
 				<br />
 				<button onClick={this.submitSearch}>Search</button>
-				<CardSheet results={this.state.results} searched={this.state.searched} />
+				{ this.state.results ? <CardSheet cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} /> : null }
 			</div>
 		)
 	}

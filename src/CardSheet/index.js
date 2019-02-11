@@ -4,8 +4,8 @@ const CardSheet = (props) => {
 
 	let cards = <p>&nbsp;</p>
 
-	if (props.results) {
-		cards = props.results.cards.map((card, i)=>{
+	if (props.cards.length > 0) {
+		cards = props.cards.map((card, i)=>{
 
 			let colors = "Colorless";
 
@@ -36,6 +36,8 @@ const CardSheet = (props) => {
 			return (
 				<li key={`card-${i}`}>
 					<strong>{card.name}</strong>
+					<br /> 
+					<button id={`${card.id}`} onClick={props.viewCard.bind(null, card.id)}>View</button>
 					<br />
 					{colors}
 					<br />
