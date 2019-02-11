@@ -34,10 +34,10 @@ const CardSheet = (props) => {
 			}
 
 			return (
-				<li key={`card-${i}`}>
+				<li key={`card-${i}`} id={`${card.id}`} >
 					<strong>{card.name}</strong>
 					<br /> 
-					<button id={`${card.id}`} onClick={props.viewCard.bind(null, card.id)}>View</button>
+					<button onClick={props.viewCard.bind(null, card.id)}>View</button>
 					<br />
 					{colors}
 					<br />
@@ -60,7 +60,7 @@ const CardSheet = (props) => {
 
 	return (
 		<div>
-			<ul>
+			<ul className = "cardSheet">
 				{ props.searched ? cards : null }
 			</ul>
 		</div>

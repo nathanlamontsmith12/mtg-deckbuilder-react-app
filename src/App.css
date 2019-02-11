@@ -3,23 +3,32 @@ body {
 }
 
 
-/* ===== Card View Styling ===== */
+/* ===== CardSheet Styling ===== */
+.cardSheet {
+	position: relative;
+	z-index: 1;
+}
 
-#MTG-card-view {
+
+/* ===== CardView Styling ===== */
+
+.cardViewOuter {
 	position: fixed;
+	z-index: 2;
 	margin-left: 40%;
+	margin-top: 140px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-#MTG-card-view div {
+.cardViewInner {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
 }
 
-#MTG-card-view button {
+.cardViewInner button {
 	align-self: center;
 }

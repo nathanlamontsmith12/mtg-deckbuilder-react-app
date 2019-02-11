@@ -22,9 +22,10 @@ class Search extends Component {
 
 		const queryName = this.state.query;
 
+		// if cardview modal is active, reset opacity to 1 
 		if (this.state.view) {
-			const lastBtn = document.getElementById(this.state.view.id)
-			lastBtn.style.opacity = "1" 
+			const lastDiv = document.getElementById(this.state.view.id)
+			lastDiv.style.opacity = "1" 
 		}
 
 		await this.setState({
@@ -40,13 +41,13 @@ class Search extends Component {
 
 		this.getCards(cardQueryObject);
 	}
-	defaultView = (btnId) => {
+	defaultView = (divId) => {
 
-		// reset opacity to 1 of the button: 
+		// reset opacity to 1 for the div of viewed card: 
 
-		const thisButton = document.getElementById(btnId);
+		const thisDiv = document.getElementById(divId);
 
-		thisButton.style.opacity = "1";
+		thisDiv.style.opacity = "1";
 
 		this.setState({
 			view: null
@@ -94,11 +95,11 @@ class Search extends Component {
 	}
 	viewCard = (id) => {
 
-		// if there was a previous viewed card, reset its view button to opacity 1: 
+		// if there was a previous viewed card, reset its div to opacity 1: 
 
 		if (this.state.view) {
-			const lastBtn = document.getElementById(this.state.view.id)
-			lastBtn.style.opacity = "1" 
+			const lastDiv = document.getElementById(this.state.view.id)
+			lastDiv.style.opacity = "1" 
 		}
 
 		// find card to view: 
@@ -111,11 +112,11 @@ class Search extends Component {
 			}
 		})
 
-		// make button opaque -- button ID was set to Card ID so this is easy to find: 
+		// make div opaque -- div ID was set to Card ID so this is easy to find: 
 
-		const thisButton = document.getElementById(id);
+		const thisDiv = document.getElementById(id);
 
-		thisButton.style.opacity = "0.3";
+		thisDiv.style.opacity = "0.3";
 
 		this.setState({
 			view: {name: cardToView.name, url: cardToView.imageUrl, id: id}
