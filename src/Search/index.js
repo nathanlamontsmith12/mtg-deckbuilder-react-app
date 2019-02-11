@@ -22,8 +22,15 @@ class Search extends Component {
 
 		const queryName = this.state.query;
 
+		if (this.state.view) {
+			const lastBtn = document.getElementById(this.state.view.id)
+			lastBtn.style.opacity = "1" 
+		}
+
 		await this.setState({
+			view: null,
 			searching: true,
+			searched: false,
 			query: ""
 		})
 
@@ -115,13 +122,27 @@ class Search extends Component {
 		})
 	}
 	render(){
+
+		const searchBar = 
+			<div>
+				<h1>SEARCH FOR CARDS BY NAME</h1>
+				<input name="query" value={this.state.query} onChange={this.handleQueryInput} />
+				<button onClick={this.submitSearch}>Search</button>
+				<br />
+			</div>
+
+		const searching = 
+			<div>
+				<h1>SEARCHING.... </h1>
+				<input hidden name="query" value={this.state.query} onChange={this.handleQueryInput} />
+				<button hidden onClick={this.submitSearch}>Search</button>
+				<br />
+			</div>
+
 		return(
 			<div>
 				{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} /> : null }
-				<h1>SEARCH FOR CARDS BY NAME</h1>
-				<input name="query" value={this.state.query} onChange={this.handleQueryInput} />
-				<br />
-				<button onClick={this.submitSearch}>Search</button>
+				{ this.state.searching ? searching : searchBar}
 				{ this.state.results ? <CardSheet cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} /> : null }
 			</div>
 		)
