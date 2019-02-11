@@ -40,14 +40,13 @@ class App extends Component {
 			loggedInAs: ""
 		})
 	}
-	// render={(props) => <Dashboard {...props} isAuthed={true} />}
 	render() {
 
 		const authData = this.state
 
 		return (
 			<main>
-				<Header />
+				<Header authData={authData} setLogOut={this.setLogOut} />
 				<Switch>
 					<Route 
 						exact path="/" 

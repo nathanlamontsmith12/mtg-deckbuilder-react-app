@@ -40,8 +40,14 @@ class Authorization extends Component {
 			[evt.currentTarget.name]: evt.currentTarget.value
 		})
 	}
-	fail = (failMessage) => {
+	fail = (failMessage, viewType) => {
 		
+		let regSet = viewType;
+
+		if(typeof viewType !== "boolean") {
+			regSet = false
+		}
+
 		let message;
 
 		if (!failMessage) {
@@ -51,6 +57,7 @@ class Authorization extends Component {
 		}
 
 		this.setState({
+			reg: regSet,
 			inputFailMessage: message,
 			username: "",
 			password: "",
@@ -77,7 +84,7 @@ class Authorization extends Component {
 
 			// quick user input checking on frontend: 
 			if (!this.state.username || !this.state.password) {
-				this.fail("Invalid username and/or password");
+				this.fail("Invalid username and/or password", false);
 				return
 			}
 
@@ -116,26 +123,32 @@ class Authorization extends Component {
 			}
 		} catch (err) {
 			console.log(err);
-			this.fail("Log In Failed");
+			this.fail("Log In Failed", false);
 			return err
 		}
 	}
 	createNewAccount = async () => {
 		try {
 
+			// cannot make new account if already logged in: 
+			if(this.state.loggedIn || this.state.loggedInAs) {
+				this.fail("You must log out before creating a new account", true);
+				return
+			}
+
 			// quick input checks on frontend: 
 			if (!this.state.username || !this.state.password) {
-				this.fail("Invalid username and/or password");
+				this.fail("Invalid username and/or password", true);
 				return
 			} 
 		
 			if (!this.state.email) {
-				this.fail("Invalid email address input");
+				this.fail("Invalid email address input", true);
 				return
 			}
 
 			if (this.state.password !== this.state.passwordConfirm) {
-				this.fail("Password must match Password confirmation");
+				this.fail("Password must match Password confirmation", true);
 				return
 			}
 
@@ -177,7 +190,7 @@ class Authorization extends Component {
 		
 		} catch (err) {
 			console.log(err);
-			this.fail("Failed to Create New Account");
+			this.fail("Failed to Create New Account", true);
 			return err
 		}
 	}
