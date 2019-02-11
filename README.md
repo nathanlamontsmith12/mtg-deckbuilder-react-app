@@ -36,7 +36,6 @@ The documentation of the Mongo database models used for this project can also be
 
 Available in the "wireframes" directory. 
 
-Overview: 
 ![Overview](wireframes/00-birds-eye.png)
 
 ### "Smart" (Stateful) Container Components 
