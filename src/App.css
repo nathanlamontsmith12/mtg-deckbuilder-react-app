@@ -2,21 +2,80 @@ body {
   background: azure;
 }
 
+p {
+	padding: 0;
+	margin: 0;
+}
 
-/* ===== CardSheet Styling ===== */
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	color: blue;
+	text-decoration: underline;
+}
+
+/* ========== Header Styling ========== */
+header {
+	height: 140px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: black;
+}
+
+header div h1, header div h3 {
+	color: azure;
+	margin-left: 20px;
+}
+
+nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: flex-start;
+	background-color: azure;
+	margin-right: 20px;
+}
+
+nav > * {
+	margin: 5px 20px 5px 20px;
+}
+
+
+
+/* ========== Footer Styling ========== */
+footer {
+	margin: 40px 20px 20px 20px;
+	border: 1px solid black;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+/* ========== CardSheet Styling ========== */
 .cardSheet {
 	position: relative;
 	z-index: 1;
 }
 
+.spacerSearch {
+	height: 40vh;
+	width: 90%;
+}
 
-/* ===== CardView Styling ===== */
+/* ========== CardView Styling ========== */
 
 .cardViewOuter {
 	position: fixed;
 	z-index: 2;
 	margin-left: 40%;
-	margin-top: 140px;
+	margin-top: -10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;

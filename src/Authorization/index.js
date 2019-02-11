@@ -7,6 +7,7 @@ class Authorization extends Component {
 		this.state = {
 			loggedIn: props.authData.loggedIn,
 			loggedInAs: props.authData.loggedInAs,
+			processing: false,
 			inputFailMessage: "",
 			username: "",
 			password: "",
@@ -22,7 +23,8 @@ class Authorization extends Component {
 			username: "",
 			password: "",
 			passwordConfirm: "",
-			email: ""
+			email: "",
+			processing: false
 		})
 	}
 	regView = () => {
@@ -32,7 +34,8 @@ class Authorization extends Component {
 			username: "",
 			password: "",
 			passwordConfirm: "",
-			email: ""			
+			email: "",
+			processing: false			
 		})
 	}
 	handleUserInput = (evt) => {
@@ -62,7 +65,8 @@ class Authorization extends Component {
 			username: "",
 			password: "",
 			passwordConfirm: "",
-			email: ""
+			email: "",
+			processing: false
 		})
 
 		this.props.setLogOut();
@@ -76,7 +80,8 @@ class Authorization extends Component {
 			username: "",
 			password: "",
 			passwordConfirm: "",
-			email: ""
+			email: "",
+			processing: false
 		})
 	}
 	logIn = async () => {
@@ -87,6 +92,10 @@ class Authorization extends Component {
 				this.fail("Invalid username and/or password", false);
 				return
 			}
+
+			this.setState({
+				processing: true
+			})
 
 			// communicate w/ back end; set body, stringify, fetch: 
 			const body = {
@@ -152,6 +161,9 @@ class Authorization extends Component {
 				return
 			}
 
+			this.setState({
+				processing: true
+			})
 
 			// Communicate w/ back end -- set body, stringify, fetch: 
 			const body = {
@@ -200,7 +212,7 @@ class Authorization extends Component {
 			<div>
 				{ this.state.inputFailMessage ? <h1> {this.state.inputFailMessage} </h1> : <h1> &nbsp; </h1> }
 				{ this.state.reg ? <button onClick={this.loginView}> Already Have Account? </button> : <button onClick={this.regView}> Make New Accout </button> }
-				<LoginForm data={this.state} handleUserInput={this.handleUserInput} logIn={this.logIn} createNewAccount={this.createNewAccount}/>
+				{ this.state.processing ? <h2> Logging in.... </h2> : <LoginForm data={this.state} handleUserInput={this.handleUserInput} logIn={this.logIn} createNewAccount={this.createNewAccount} />}
 			</div>
 
 		const loggedIn = 

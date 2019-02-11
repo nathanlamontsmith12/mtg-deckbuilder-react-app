@@ -5,11 +5,13 @@ const Header = (props) => {
 
 	return (
 		<header>
-			<h1> Header </h1>
-				{ props.authData.loggedIn ? <p>Logged in as {props.authData.loggedInAs}</p> : <p> &nbsp; </p> }
+			<div>
+				<h1> Magic: The Gathering </h1>
+				<h3> Deckbuilder App </h3>
+			</div>
 			<nav>
+				{ props.authData.loggedIn ? <p><small>Logged in as {props.authData.loggedInAs}</small></p> : null }
 				{ props.authData.loggedIn ? <Link onClick={props.setLogOut} to="/auth"> Logout </Link> : <Link to="/auth">Login / Sign up</Link> }
-				<br />
 				<Link to="/">Search</Link>
 			</nav>
 		</header>
