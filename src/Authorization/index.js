@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import LoginForm from "../LoginForm";
 
 class Authorization extends Component {
-	constructor(props){
+	constructor (props) {
 		super();
 		this.state = {
 			loggedIn: props.authData.loggedIn,
@@ -61,6 +61,9 @@ class Authorization extends Component {
 		this.props.setLogOut();
 	}
 	success = (username) => {
+		
+		this.props.setLogIn(username);
+		
 		this.setState({
 			inputFailMessage: "",
 			username: "",
@@ -68,8 +71,6 @@ class Authorization extends Component {
 			passwordConfirm: "",
 			email: ""
 		})
-
-		this.props.setLogIn();
 	}
 	logIn = async () => {
 		try {
@@ -88,7 +89,7 @@ class Authorization extends Component {
 
 			const bodyString = JSON.stringify(body);
 
-			const response = await fetch("http://localhost:9000/auth", {
+			const response = await fetch("http://localhost:9000/user/login", {
 				method: "POST",
 				body: bodyString,
 				credentials: "include",
@@ -101,12 +102,21 @@ class Authorization extends Component {
 			// set frontend state to logged in, if everything checks out 
 			if(!response.ok) {
 				throw Error(response.statusText)
+			} 
+
+			const parsedResponse = await response.json();
+
+			console.log(parsedResponse);
+
+			if (parsedResponse.data) {
+				console.log("LOG IN SUCCESSFUL");
+				this.success(this.state.username);
 			} else {
-				this.success();
+				throw Error("Late fail Log In")
 			}
 		} catch (err) {
 			console.log(err);
-			this.fail("Failed to Log In");
+			this.fail("Log In Failed");
 			return err
 		}
 	}
@@ -149,12 +159,20 @@ class Authorization extends Component {
 				}
 			})
 
-
 			// set frontend state to logged in if everything checks out 
 			if(!response.ok) {
 				throw Error(response.statusText)
+			} 
+
+			const parsedResponse = await response.json();
+
+			console.log(parsedResponse);
+
+			if (parsedResponse.data) {
+				console.log("ACCOUNT CREATION AND LOG IN SUCCESSFUL");
+				this.success(this.state.username);
 			} else {
-				this.success();
+				throw Error("Late fail account creation")
 			}
 		
 		} catch (err) {
@@ -175,12 +193,12 @@ class Authorization extends Component {
 		const loggedIn = 
 			<div>
 				<h1>Logged In</h1>
-				<h3>You are logged in as {this.state.loggedInAs} </h3>
+				<h3> You are logged in as {this.props.authData.loggedInAs} </h3>
 			</div>
 
 		return (
 			<div>
-				{ this.state.loggedIn ? loggedIn : notLoggedIn }
+				{ this.props.authData.loggedIn ? loggedIn : notLoggedIn }
 			</div>
 		)
 	}
