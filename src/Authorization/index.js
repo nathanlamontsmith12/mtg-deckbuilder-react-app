@@ -18,13 +18,21 @@ class Authorization extends Component {
 	loginView = () => {
 		this.setState({
 			reg: false,
-			inputFailMessage: ""
+			inputFailMessage: "",
+			username: "",
+			password: "",
+			passwordConfirm: "",
+			email: ""
 		})
 	}
 	regView = () => {
 		this.setState({
 			reg: true,
-			inputFailMessage: ""
+			inputFailMessage: "",
+			username: "",
+			password: "",
+			passwordConfirm: "",
+			email: ""			
 		})
 	}
 	handleUserInput = (evt) => {
@@ -33,26 +41,83 @@ class Authorization extends Component {
 		})
 	}
 	logIn = () => {
+		if (!this.state.username || !this.state.password) {
+			this.setState({
+				inputFailMessage: "Invalid Username and/or Password",
+				loggedIn: false,
+				loggedInAs: "",
+				username: "",
+				password: "",
+				passwordConfirm: "",
+				email: ""
+			})
+			return
+		}
 
+		// communicate w/ back end 
+			// CODE 
+
+		// set frontend state to logged in
+		this.setLogIn()
 	}
 	createNewAccount = () => {
 		if (!this.state.username || !this.state.password) {
 			this.setState({
-				inputFailMessage: "Invalid Username and/or Password"
+				inputFailMessage: "Invalid Username and/or Password", 
+				loggedIn: false,
+				loggedInAs: "",
+				username: "",
+				password: "",
+				passwordConfirm: "",
+				email: ""
 			})
 			return
 		} 
-		if (this.state.password === this.state.passwordConfirm) {
+		if (!this.state.email) {
 			this.setState({
-				inputFailMessage: "Password Confirmation must match Password"
+				inputFailMessage: "Invalid Email Address",
+				loggedIn: false,
+				loggedInAs: "",
+				username: "",
+				password: "",
+				passwordConfirm: "",
+				email: ""
+			})
+		}
+		if (this.state.password !== this.state.passwordConfirm) {
+			this.setState({
+				inputFailMessage: "Password Confirmation must match Password",
+				loggedIn: false,
+				loggedInAs: "",
+				username: "",
+				password: "",
+				passwordConfirm: "",
+				email: ""
 			})
 			return
 		}
-		this.setState({
 
+		// Communicate w/ back end
+			// CODE 
+
+		// set frontend state to logged in
+		this.setLogIn();
+	}
+	setLogIn = () => {
+		const currentUser = this.state.username 
+
+		this.setState({
+			loggedIn: true,
+			loggedInAs: currentUser,
+			username: "",
+			password: "",
+			passwordConfirm: "",
+			email: ""
 		})
 	}
 	render(){
+
+		console.log(this.state);
 
 		const notLoggedIn =	
 			<div>
