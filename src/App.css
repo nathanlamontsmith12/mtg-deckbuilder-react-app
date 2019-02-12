@@ -1,3 +1,5 @@
+
+/* ========== Global ========== */
 body {
   background: azure;
 }
@@ -17,7 +19,16 @@ a:hover {
 	text-decoration: underline;
 }
 
-/* ========== Header Styling ========== */
+
+
+/* ========== Main Container  ========== */
+.mainCon {
+	margin-left: 60px;
+}
+
+
+
+/* ========== Header  ========== */
 header {
 	height: 140px;
 	display: flex;
@@ -28,7 +39,7 @@ header {
 
 header div h1, header div h3 {
 	color: azure;
-	margin-left: 20px;
+	margin-left: 60px;
 }
 
 nav {
@@ -46,7 +57,8 @@ nav > * {
 
 
 
-/* ========== Footer Styling ========== */
+
+/* ========== Footer  ========== */
 footer {
 	margin: 40px 20px 20px 20px;
 	border: 1px solid black;
@@ -58,7 +70,8 @@ footer {
 
 
 
-/* ========== CardSheet Styling ========== */
+
+/* ========== Card SHEET  ========== */
 .cardSheet {
 	position: relative;
 	z-index: 1;
@@ -69,7 +82,9 @@ footer {
 	width: 90%;
 }
 
-/* ========== CardView Styling ========== */
+
+
+/* ========== Card VIEW  ========== */
 
 .cardViewOuter {
 	position: fixed;
