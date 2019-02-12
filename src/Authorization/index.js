@@ -85,7 +85,7 @@ class Authorization extends Component {
 
 		this.props.setLogIn(username, userId);
 
-		this.props.history.push("/dashboard");
+		this.props.history.push("/");
 	}
 	logIn = async () => {
 		try {

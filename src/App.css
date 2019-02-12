@@ -20,6 +20,10 @@ a:hover {
 	text-decoration: underline;
 }
 
+#root {
+	min-width: 750px;
+}
+
 
 
 /* ========== Main Containers  ========== */
@@ -56,7 +60,7 @@ nav {
 	justify-content: space-around;
 	align-items: flex-start;
 	background-color: azure;
-	margin-right: 20px;
+	margin-right: 60px;
 }
 
 nav > * {
@@ -79,8 +83,7 @@ footer {
 
 
 
-
-/* ========== Card SHEET  ========== */
+/* ========== Card SHEET ========== */
 .cardSheet {
 	position: relative;
 	z-index: 1;
@@ -89,19 +92,20 @@ footer {
 
 
 
-/* ========== Card VIEW  ========== */
+/* ========== Card VIEW ========== */
 
 .cardViewOuter {
 	position: fixed;
 	z-index: 2;
 	margin-left: 40%;
-	margin-top: -10px;
+	margin-top: -200px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
 .cardViewInner {
+	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -116,6 +120,10 @@ footer {
 	align-self: center;
 }
 
+.viewLow {
+	margin-top: 190px;
+}
+
 
 
 /* ========== DASHBOARD  ========== */
@@ -124,25 +132,59 @@ footer {
 	display: flex;
 	justify-content: stretch;
 	height: 100%;
+	min-width: 700px;
 }
 
-.cardDash {
-	border: 1px black solid;
-	height: calc(100vh - 220px);
-	width: 300px;
-	left: calc(100% - 320px);
-	margin: 20px 0px -20px 0px;
-	position: fixed;
 
+.leftDash {
+	margin: 20px 20px -20px -40px;
+	width: calc(100% - 300px);
+	min-height: calc(100vh - 220px);	
+}
+
+.userNav {
+	height: 100px;
+	width: 100%;
+	border: 1px black solid;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.divBtn {
+	width: 100px;
+	height: 60px;
+	background-color: cadetblue;
+	color: azure;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .searchDash {
 	border: 1px black solid;
-	margin: 20px 20px -20px -40px;
-	width: calc(100% - 300px);
-	min-height: calc(100vh - 220px);
+	height: calc(100% - 120px);
+	margin-top: 20px;
 }
 
 .searchDash > * {
 	margin-left: 20px;
+}
+
+.rightDash {
+	min-height: calc(100vh - 220px);
+	width: 300px;
+	left: calc(100% - 320px);
+	margin: 20px 0px -20px 0px;
+	position: fixed;
+	z-index: 1;
+	background-color: lightgrey;
+}
+
+@media (max-width: 755px) {
+	.rightDash {
+		position: sticky;
+		max-height: 800px;
+		text-overflow: scroll;
+	}
 }

@@ -6,6 +6,7 @@ class Search extends Component {
 	constructor(props){
 		super();
 		this.state = {
+			viewLow: props.viewLow,
 			viewBtns: props.viewBtns,
 			loggedIn: props.authData.loggedIn,
 			loggedInAs: props.authData.loggedInAs,
@@ -13,7 +14,7 @@ class Search extends Component {
 			searching: false,
 			searched: false,
 			query: "",
-			view: null
+			view: null,
 		}
 	}
 	handleQueryInput = (evt) => {
@@ -137,6 +138,11 @@ class Search extends Component {
 	}
 	render(){
 
+		const authData = {
+			loggedIn: this.state.loggedIn,
+			loggedInAs: this.state.loggedInAs,
+		}
+
 		const searchBar = 
 			<div>
 				<h1>SEARCH FOR CARDS BY NAME</h1>
@@ -155,7 +161,7 @@ class Search extends Component {
 
 		return(
 			<div>
-				{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} /> : null }
+				{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={this.state.viewLow} /> : null }
 				{ this.state.searching ? searching : searchBar}
 				{ this.state.results ? <CardSheet viewBtns={this.state.viewBtns} cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} /> : null }
 			</div>

@@ -9,6 +9,9 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Authorization from "./Authorization";
 import Dashboard from "./Dashboard";
+import Cards from "./Cards";
+import Decks from "./Decks";
+
 
 // Change this later for more elegant 404 error handling 
 const My404 = () => {
@@ -68,19 +71,22 @@ class App extends Component {
 				<div className="mainCon">
 					<section>
 						<Switch>
-							<Route 
-								exact path="/" 
-								render={ (props) => <Search {...props} authData={authData} viewBtns={true} />} 
-							/>
+							{ access ? <Route exact path="/" render={ (props) => <Dashboard {...props} authData={authData} /> } /> : <Route exact path="/" render={ (props) => <Search {...props} authData={authData} viewBtns={true} viewLow={true} />} /> }
 							<Route 
 								exact path="/auth" 
 								render={ (props) => <Authorization {...props} authData={authData} setLogIn={this.setLogIn} setLogOut={this.setLogOut} />} 
 							/>
 							<Route 
-								exact path="/dashboard" 
-								render={ (props) => <Dashboard {...props} authData={authData} /> } 
+								exact path="/decks" 
+								render={ (props) => <Decks {...props} authData={authData} /> }
 							/>
-							<Route component = { My404 } />
+							<Route 
+								exact path="/cards"
+								render={ (props) => <Cards {...props} authData={authData} /> } 
+							/>
+							<Route 
+								component = { My404 } 
+							/>
 						</Switch>
 					</section> 
 					<Footer />
@@ -89,6 +95,8 @@ class App extends Component {
 		);
 	}
 }
-							// { access ? <Route exact path="/dashboard" render={ (props) => <Dashboard {...props} authData={authData} /> } /> : null }
+							// { access ? <Route exact path="/" render={ (props) => <Dashboard {...props} authData={authData} /> } /> : <Route exact path="/" render={ (props) => <Search {...props} authData={authData} viewBtns={true} />} /> }
+							// IF not logged in, mount Search as home page; else, mount dashboard 
+// THEN: add { access ? <Route ...... <Decks>}} and similar logic for cards
 
 export default App;
