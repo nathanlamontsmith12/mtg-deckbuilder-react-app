@@ -224,6 +224,7 @@ class Authorization extends Component {
 		return (
 			<div>
 				{ this.props.authData.loggedIn ? loggedIn : notLoggedIn }
+				<div className="spacerAuth"></div>
 			</div>
 		)
 	}

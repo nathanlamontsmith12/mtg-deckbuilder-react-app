@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 
 
 // Components: 
@@ -14,7 +14,10 @@ import Dashboard from "./Dashboard";
 const My404 = () => {
   return(
 	<div>
-	  You are lost!! Try logging in first 
+	  <h1>Not all who wander are lost...</h1>
+	  <h3> But you are. </h3> 
+	  <p> If you are trying to access your dashboard and begin making decks, be sure to <strong><Link to="/auth">sign in first</Link></strong> </p>
+	  <div className="spacerSearch"></div>
 	</div>
   )
 }
@@ -62,22 +65,30 @@ class App extends Component {
 		return (
 			<main>
 				<Header authData={authData} setLogOut={this.setLogOut} />
-				<Switch>
-					<Route 
-						exact path="/" 
-						render={ (props) => <Search {...props} authData={authData} />} 
-					/>
-					<Route 
-						exact path="/auth" 
-						render={ (props) => <Authorization {...props} authData={authData} setLogIn={this.setLogIn} setLogOut={this.setLogOut} />} 
-					/>
-					{ access ? <Route exact path="/dashboard" render={ (props) => <Dashboard {...props} authData={authData} /> } /> : null }
-					<Route component = { My404 } />
-				</Switch> 
-				<Footer />
+				<div className="mainCon">
+					<section>
+						<Switch>
+							<Route 
+								exact path="/" 
+								render={ (props) => <Search {...props} authData={authData} viewBtns={true} />} 
+							/>
+							<Route 
+								exact path="/auth" 
+								render={ (props) => <Authorization {...props} authData={authData} setLogIn={this.setLogIn} setLogOut={this.setLogOut} />} 
+							/>
+							<Route 
+								exact path="/dashboard" 
+								render={ (props) => <Dashboard {...props} authData={authData} /> } 
+							/>
+							<Route component = { My404 } />
+						</Switch>
+					</section> 
+					<Footer />
+				</div>
 			</main>
 		);
 	}
 }
+							// { access ? <Route exact path="/dashboard" render={ (props) => <Dashboard {...props} authData={authData} /> } /> : null }
 
 export default App;

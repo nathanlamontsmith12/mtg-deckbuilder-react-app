@@ -6,6 +6,7 @@ class Search extends Component {
 	constructor(props){
 		super();
 		this.state = {
+			viewBtns: props.viewBtns,
 			loggedIn: props.authData.loggedIn,
 			loggedInAs: props.authData.loggedInAs,
 			results: null,
@@ -156,7 +157,7 @@ class Search extends Component {
 			<div>
 				{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} /> : null }
 				{ this.state.searching ? searching : searchBar}
-				{ this.state.results ? <CardSheet cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} /> : <div className="spacerSearch"></div> }
+				{ this.state.results ? <CardSheet viewBtns={this.state.viewBtns} cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} /> : null }
 			</div>
 		)
 	}

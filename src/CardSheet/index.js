@@ -37,8 +37,8 @@ const CardSheet = (props) => {
 				<li key={`card-${i}`} id={`${card.id}`} >
 					<strong>{card.name}</strong>
 					<br /> 
-					<button onClick={props.viewCard.bind(null, card.id)}>View</button>
-					<br />
+					{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
+					{ props.viewBtns ? <br /> : null}
 					{colors}
 					<br />
 					{card.manaCost}

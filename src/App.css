@@ -2,6 +2,7 @@
 /* ========== Global ========== */
 body {
   background: azure;
+  min-height: 100vh;
 }
 
 p {
@@ -21,11 +22,17 @@ a:hover {
 
 
 
-/* ========== Main Container  ========== */
+/* ========== Main Containers  ========== */
 .mainCon {
-	margin-left: 60px;
+	min-height: calc(100vh - 180px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
+section {
+	margin-left: 60px;
+}
 
 
 /* ========== Header  ========== */
@@ -67,6 +74,7 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 }
 
 
@@ -78,10 +86,6 @@ footer {
 	z-index: 1;
 }
 
-.spacerSearch {
-	height: 40vh;
-	width: 90%;
-}
 
 
 
@@ -110,4 +114,35 @@ footer {
 
 .cardViewInner button:last-child {
 	align-self: center;
+}
+
+
+
+/* ========== DASHBOARD  ========== */
+
+#dashboard {
+	display: flex;
+	justify-content: stretch;
+	height: 100%;
+}
+
+.cardDash {
+	border: 1px black solid;
+	height: calc(100vh - 220px);
+	width: 300px;
+	left: calc(100% - 320px);
+	margin: 20px 0px -20px 0px;
+	position: fixed;
+
+}
+
+.searchDash {
+	border: 1px black solid;
+	margin: 20px 20px -20px -40px;
+	width: calc(100% - 300px);
+	min-height: calc(100vh - 220px);
+}
+
+.searchDash > * {
+	margin-left: 20px;
 }
