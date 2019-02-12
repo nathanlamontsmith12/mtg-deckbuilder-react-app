@@ -7,14 +7,14 @@ import { Route, Switch } from "react-router-dom";
 import Search from "./Search";
 import Header from "./Header";
 import Footer from "./Footer";
-import Authorization from "./Authorization"
-
+import Authorization from "./Authorization";
+import Dashboard from "./Dashboard";
 
 // Change this later for more elegant 404 error handling 
 const My404 = () => {
   return(
 	<div>
-	  You are lost!!
+	  You are lost!! Try logging in first 
 	</div>
   )
 }
@@ -53,6 +53,12 @@ class App extends Component {
 
 		const authData = this.state
 
+		let access = false; 
+
+		if (this.state.loggedIn && this.state.loggedInAs && this.state.userId) {
+			access = true;
+		}
+
 		return (
 			<main>
 				<Header authData={authData} setLogOut={this.setLogOut} />
@@ -65,6 +71,7 @@ class App extends Component {
 						exact path="/auth" 
 						render={ (props) => <Authorization {...props} authData={authData} setLogIn={this.setLogIn} setLogOut={this.setLogOut} />} 
 					/>
+					{ access ? <Route exact path="/dashboard" render={ (props) => <Dashboard {...props} authData={authData} /> } /> : null }
 					<Route component = { My404 } />
 				</Switch> 
 				<Footer />

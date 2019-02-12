@@ -30,7 +30,7 @@ a:hover {
 
 /* ========== Header  ========== */
 header {
-	height: 140px;
+	height: 180px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -43,6 +43,7 @@ header div h1, header div h3 {
 }
 
 nav {
+	min-height: 80px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;

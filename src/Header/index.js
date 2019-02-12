@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 
 const Header = (props) => {
 
+	let access = false;
+
+	if (props.authData.loggedIn && props.authData.loggedInAs && props.authData.userId) {
+		access = true;
+	}
+
 	return (
 		<header>
 			<div>
@@ -13,6 +19,7 @@ const Header = (props) => {
 				{ props.authData.loggedIn ? <p><small>Logged in as {props.authData.loggedInAs}</small></p> : null }
 				{ props.authData.loggedIn ? <Link onClick={props.setLogOut} to="/auth"> Logout </Link> : <Link to="/auth">Login / Sign up</Link> }
 				<Link to="/">Search</Link>
+				{ access ? <Link to="/dashboard">Dashboard</Link> : null }
 			</nav>
 		</header>
 	)

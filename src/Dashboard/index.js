@@ -20,15 +20,6 @@ class Dashboard extends Component {
 	}
 	render(){
 
-		console.log("dashboard state: ", this.state);
-		console.log("dashboard props: ", this.props);
-		console.log("dashboard nope: ", this.props.nope);
-
-		if (this.props.nope) {
-			this.props.setLogOut(this.props.history);
-			this.props.history.push("/auth");
-		}
-
 		return (
 			<div>Hey yo this is the dashboard</div>
 		)

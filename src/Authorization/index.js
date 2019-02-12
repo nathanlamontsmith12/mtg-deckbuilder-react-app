@@ -73,7 +73,6 @@ class Authorization extends Component {
 	}
 	success = (username, userId) => {
 		
-		this.props.setLogIn(username, userId);
 		
 		this.setState({
 			inputFailMessage: "",
@@ -83,6 +82,10 @@ class Authorization extends Component {
 			email: "",
 			processing: false
 		})
+
+		this.props.setLogIn(username, userId);
+
+		this.props.history.push("/dashboard");
 	}
 	logIn = async () => {
 		try {
@@ -125,7 +128,7 @@ class Authorization extends Component {
 
 			// "parsedResponse" is the ID of the user, sent back from server
 			if (parsedResponse.data) {
-				this.success(this.state.username, parsedResponse);
+				this.success(this.state.username, parsedResponse.data);
 			} else {
 				throw Error("Late fail Log In")
 			}
@@ -192,7 +195,7 @@ class Authorization extends Component {
 
 			// "parsedResponse" is the ID of the user, sent back from server
 			if (parsedResponse.data) {
-				this.success(this.state.username, parsedResponse);
+				this.success(this.state.username, parsedResponse.data);
 			} else {
 				throw Error("Late fail account creation")
 			}
