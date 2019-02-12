@@ -25,19 +25,28 @@ class App extends Component {
 		super();
 		this.state = {
 			loggedIn: false,
-			loggedInAs: ""
+			loggedInAs: "",
+			userId: null
 		}
 	}
-	setLogIn = (username) => {
+	setLogIn = (username, userId) => {
+
+		if (!username || !userId) {
+			this.setLogOut();
+			return
+		}
+
 		this.setState({
 			loggedIn: true,
-			loggedInAs: username
+			loggedInAs: username,
+			userId: userId
 		})
 	}
 	setLogOut = () => {
 		this.setState({
 			loggedIn: false,
-			loggedInAs: ""
+			loggedInAs: "",
+			userId: null
 		})
 	}
 	render() {

@@ -71,9 +71,9 @@ class Authorization extends Component {
 
 		this.props.setLogOut();
 	}
-	success = (username) => {
+	success = (username, userId) => {
 		
-		this.props.setLogIn(username);
+		this.props.setLogIn(username, userId);
 		
 		this.setState({
 			inputFailMessage: "",
@@ -122,16 +122,15 @@ class Authorization extends Component {
 
 			const parsedResponse = await response.json();
 
-			console.log(parsedResponse);
 
+			// "parsedResponse" is the ID of the user, sent back from server
 			if (parsedResponse.data) {
-				console.log("LOG IN SUCCESSFUL");
-				this.success(this.state.username);
+				this.success(this.state.username, parsedResponse);
 			} else {
 				throw Error("Late fail Log In")
 			}
 		} catch (err) {
-			console.log(err);
+			console.log("Error: ", err);
 			this.fail("Log In Failed", false);
 			return err
 		}
@@ -191,17 +190,15 @@ class Authorization extends Component {
 
 			const parsedResponse = await response.json();
 
-			console.log(parsedResponse);
-
+			// "parsedResponse" is the ID of the user, sent back from server
 			if (parsedResponse.data) {
-				console.log("ACCOUNT CREATION AND LOG IN SUCCESSFUL");
-				this.success(this.state.username);
+				this.success(this.state.username, parsedResponse);
 			} else {
 				throw Error("Late fail account creation")
 			}
 		
 		} catch (err) {
-			console.log(err);
+			console.log("Error: ", err);
 			this.fail("Failed to Create New Account", true);
 			return err
 		}

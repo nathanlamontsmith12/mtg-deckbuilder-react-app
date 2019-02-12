@@ -88,6 +88,10 @@ footer {
 	align-items: flex-start;
 }
 
-.cardViewInner button {
+.cardViewInner button:first-child {
+	align-self: flex-start;
+}
+
+.cardViewInner button:last-child {
 	align-self: center;
 }

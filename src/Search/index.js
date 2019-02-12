@@ -91,7 +91,17 @@ class Search extends Component {
 				results: newCardArray
 			})
 		} catch (err) {
+			alert("Error: Search Failed");
 			console.log(err);
+			this.setState({
+				loggedIn: this.props.authData.loggedIn,
+				loggedInAs: this.props.authData.loggedInAs,
+				results: null,
+				searching: false,
+				searched: false,
+				query: "",
+				view: null	
+			})
 			return err;
 		}
 	}
