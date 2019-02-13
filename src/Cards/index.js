@@ -65,6 +65,7 @@ class Cards extends Component {
 	}
 	render(){
 		console.log(this.state);
+
 		return (
 			<div id="dashboard">
 				<div className="leftDash">

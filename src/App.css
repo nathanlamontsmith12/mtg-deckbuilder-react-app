@@ -89,7 +89,9 @@ footer {
 	z-index: 1;
 }
 
-
+button:disabled {
+	opacity: 0.3;
+}
 
 
 /* ========== Card VIEW ========== */

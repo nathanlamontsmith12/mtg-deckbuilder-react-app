@@ -33,28 +33,32 @@ const CardSheet = (props) => {
 				creatureStrength = `Power: ${card.power} / Toughness: ${card.toughness}`
 			}
 
+			const cardDetail = <div>{colors}<br />{card.manaCost}<br /> {card.type}<br />{card.setName}<br />{card.rarity}{ creatureStrength ? <div>{creatureStrength} </div> : null}<br />{card.text}<br /><br /></div>
+
+			let idName = card.id;
+
+			if (props.short) {
+				idName = "short-" + card.id;
+			}
+
+			// check if card is already in the User's cardpool: 
+			let include = true;
+
+			if (props.priors.includes((card.id)) ) {
+				include = false
+			}
+
 			return (
-				<li key={`card-${i}`} id={`${card.id}`} >
+				<li key={`card-${i}`} id={idName} >
 					<strong>{card.name}</strong>
 					<br /> 
 					{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
-					{ props.addToCardSheet ? <button onClick={props.addToCardSheet.bind(this, card.id)}> Add to Card List </button> : null }
-					{ props.removeFromList ? <button onClick={props.removeFromList.bind(this, card.id)}> Remove </button> : null }
+					{ props.addToCardSheet && include ? <button id={`addBtn-${card.id}`} onClick={props.addToCardSheet.bind(this, card.id, evt)}> Add to Card List </button> : null }
+					{ props.addToCardSheet && !include ? <button disabled="true"> Add to Card List </button> }
+					{ props.removeFromList ? <button id={`removeBtn-${card.id}`} onClick={props.removeFromList.bind(this, card.id, evt)}> Remove </button> : null }
 					{ props.viewBtns ? <br /> : null}
 					{colors}
-					<br />
-					{card.manaCost}
-					<br /> 
-					{card.type}
-					<br />
-					{card.setName}
-					<br />
-					{card.rarity}
-					{ creatureStrength ? <div>{creatureStrength} </div> : null}
-					<br />
-					{card.text}
-					<br />
-					<br />
+					{ props.short ? null : cardDetail }
 				</li>
 			)
 		})

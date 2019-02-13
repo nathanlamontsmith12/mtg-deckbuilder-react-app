@@ -16,10 +16,19 @@ class Dashboard extends Component {
 			upResults: null,
 			query: "",
 			view: null,
-			cardsToAdd: []
+			cardsToAdd: [],
+			decks: null,
+			cardpool: [],
+			faveCards: null,
+			hiddenCards: null
 		}
 	}
-	addToCardSheet = (cardId) => {
+	addToCardSheet = (cardId, evt) => {
+
+		console.log("addToCardSheetBtn: ", evt);
+
+		// make sure that we have access to the event and currentTarget, the ID of which contains the card's ID 
+		// (also the DIV id)
 
 		const cardToAdd = this.state.upResults.find( (card) => {
 			console.log(card);
@@ -39,15 +48,34 @@ class Dashboard extends Component {
 			this.setState({
 				cardsToAdd: newCardAddArray
 			})
+
+			// this should work, regardless of whether EVT gets carried through: 
+			document.querySelector(`#${cardId}`)[0].style.display = "none"
+
 		} else {
 			console.log("ERROR -- card not added");
 			return
 		}
 	}
 	addToCardpool = async () => {
+		// got to post array of cards for cardpool back to the server in order to save the new data in the DB
+		// then set state to initial (partially)
+		try {
 
+
+
+		} catch (err) {
+			console.log(err)
+			return err
+		}
 	}
 	removeFromList = (cardId) => {
+
+		console.log("removeCardBtn: ", evt.currentTarget.id);
+
+		// make sure that we have access to the event and currentTarget, the ID of which contains the card's ID 
+		// (also the DIV id)
+
 
 		const newCardsToAddArray = this.state.cardsToAdd;
 
@@ -58,6 +86,9 @@ class Dashboard extends Component {
 		this.setState({
 			cardsToAdd: newCardsToAddArray
 		})
+
+		// this should work, regardless of whether EVT carries through: 
+		document.querySelector(`#${cardId}`)[0].style.display = "block"
 	}
 	passResultsUp = (results) => {
 		this.setState({
@@ -66,6 +97,8 @@ class Dashboard extends Component {
 	}
 	componentDidMount(){
 
+		// get rid of footer; authenticate user: 
+
 		document.querySelector("footer").style.display = "none";
 
 		if (!this.props.authData.loggedIn) {
@@ -73,7 +106,47 @@ class Dashboard extends Component {
 			this.props.history.push("/auth");
 			return
 		}
-		
+
+		// get info about USER: 
+		try {
+			const URL = "http://localhost:9000/user/" + this.state.userId;
+
+			console.log(URL);
+
+			const response = await fetch(URL, {
+				method: "GET",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+
+			const user = await response.json()
+
+			console.log(user);
+
+			let cardpoolData = [];
+
+			if (user.data.cardpool) {
+				cardpoolData = user.data.cardpool
+			}
+
+			this.setState({
+				decks: user.data.decks,
+				cardpool: cardpoolData,
+				faveCards: user.data.faveCards,
+				hiddenCards: user.data.hiddenCards,
+			})
+
+		} catch (err) {
+			alert("Error - failed to load user data");
+			this.props.setLogOut();
+			this.props.history.push("/auth")
+		}	
 	}
 	render(){
 
@@ -83,17 +156,19 @@ class Dashboard extends Component {
 			userId: this.state.userId,
 		}
 
-			console.log(this.state);
+		const priors = this.state.cardpool.map( card => card.id);
+
+		console.log(this.state);
 		return (
 			<div id="dashboard">
 				<div className="leftDash">
 					<UserNav />
 					<div className="searchDash">
-						<Search passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} addToCardSheet={this.addToCardSheet} />
+						<Search passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
 					</div>
 				</div>
 				<div className="rightDash">
-					{ this.state.cardsToAdd && this.state.cardsToAdd.length > 0 ? <CardSheet addToCardpool={this.addToCardpool} removeFromList={this.removeFromList} viewBtns={false} searched={true} cards={this.state.cardsToAdd} viewCard={null} /> : null }
+					{ this.state.cardsToAdd && this.state.cardsToAdd.length > 0 ? <CardSheet short={true} addToCardpool={this.addToCardpool} removeFromList={this.removeFromList} viewBtns={false} searched={true} cards={this.state.cardsToAdd} viewCard={null} /> : null }
 				</div>
 			</div>
 		)
