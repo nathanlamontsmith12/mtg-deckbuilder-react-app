@@ -47,14 +47,36 @@ section {
 header {
 	height: 180px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	background-color: black;
 }
 
-header div h1, header div h3 {
+.headerCon {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.subtitleCon {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	margin-top: 2px;
+	margin-left: 20px;
+}
+
+.titleCon h1 {
+	font-weight: 800;
+	font-size: 50px;
 	color: azure;
-	margin-left: 60px;
+}
+
+.subtitleCon h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+	color: azure;
 }
 
 nav {
@@ -64,7 +86,6 @@ nav {
 	justify-content: space-around;
 	align-items: flex-start;
 	background-color: azure;
-	margin-right: 60px;
 }
 
 nav > * {
