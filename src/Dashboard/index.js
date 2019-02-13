@@ -23,9 +23,7 @@ class Dashboard extends Component {
 			hiddenCards: null
 		}
 	}
-	addToCardSheet = (cardId, evt) => {
-
-		console.log("addToCardSheetBtn: ", evt);
+	addToCardSheet = (cardId) => {
 
 		// make sure that we have access to the event and currentTarget, the ID of which contains the card's ID 
 		// (also the DIV id)
@@ -50,7 +48,7 @@ class Dashboard extends Component {
 			})
 
 			// this should work, regardless of whether EVT gets carried through: 
-			document.querySelector(`#${cardId}`)[0].style.display = "none"
+			document.getElementById(cardId).style.display = "none"
 
 		} else {
 			console.log("ERROR -- card not added");
@@ -71,8 +69,6 @@ class Dashboard extends Component {
 	}
 	removeFromList = (cardId) => {
 
-		console.log("removeCardBtn: ", evt.currentTarget.id);
-
 		// make sure that we have access to the event and currentTarget, the ID of which contains the card's ID 
 		// (also the DIV id)
 
@@ -88,14 +84,14 @@ class Dashboard extends Component {
 		})
 
 		// this should work, regardless of whether EVT carries through: 
-		document.querySelector(`#${cardId}`)[0].style.display = "block"
+		document.getElementById(cardId).style.display = "block";
 	}
 	passResultsUp = (results) => {
 		this.setState({
 			upResults: results
 		})
 	}
-	componentDidMount(){
+	async componentDidMount(){
 
 		// get rid of footer; authenticate user: 
 
@@ -156,15 +152,18 @@ class Dashboard extends Component {
 			userId: this.state.userId,
 		}
 
-		const priors = this.state.cardpool.map( card => card.id);
+		const allPriors = this.state.cardpool.concat(this.state.cardsToAdd);
+
+		const priors = allPriors.map( card => card.id );
 
 		console.log(this.state);
+
 		return (
 			<div id="dashboard">
 				<div className="leftDash">
 					<UserNav />
 					<div className="searchDash">
-						<Search passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
+						<Search priors={priors} passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
 					</div>
 				</div>
 				<div className="rightDash">

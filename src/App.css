@@ -20,6 +20,10 @@ a:hover {
 	text-decoration: underline;
 }
 
+ul {
+	list-style: none;
+}
+
 #root {
 	min-width: 750px;
 }
@@ -89,13 +93,8 @@ footer {
 	z-index: 1;
 }
 
-button:disabled {
-	opacity: 0.3;
-}
-
 
 /* ========== Card VIEW ========== */
-
 .cardViewOuter {
 	position: fixed;
 	z-index: 2;
@@ -126,6 +125,7 @@ button:disabled {
 	margin-top: 190px;
 }
 
+/* NOTE: Try to refactor the top margins as a %, like the left margin */
 
 
 /* ========== DASHBOARD  ========== */

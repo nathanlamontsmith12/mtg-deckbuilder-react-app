@@ -44,8 +44,10 @@ const CardSheet = (props) => {
 			// check if card is already in the User's cardpool: 
 			let include = true;
 
-			if (props.priors.includes((card.id)) ) {
-				include = false
+			if (props.priors) {
+				if (props.priors.includes((card.id)) ) {
+					include = false
+				}
 			}
 
 			return (
@@ -53,11 +55,10 @@ const CardSheet = (props) => {
 					<strong>{card.name}</strong>
 					<br /> 
 					{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
-					{ props.addToCardSheet && include ? <button id={`addBtn-${card.id}`} onClick={props.addToCardSheet.bind(this, card.id, evt)}> Add to Card List </button> : null }
-					{ props.addToCardSheet && !include ? <button disabled="true"> Add to Card List </button> }
-					{ props.removeFromList ? <button id={`removeBtn-${card.id}`} onClick={props.removeFromList.bind(this, card.id, evt)}> Remove </button> : null }
+					{ props.addToCardSheet && include ? <button id={`addBtn-${card.id}`} onClick={props.addToCardSheet.bind(this, card.id)}> Add to Card List </button> : null }
+					{ props.addToCardSheet && !include ? <button disabled={true}> Add to Card List </button> : null }
+					{ props.removeFromList ? <button id={`removeBtn-${card.id}`} onClick={props.removeFromList.bind(this, card.id)}> Remove </button> : null }
 					{ props.viewBtns ? <br /> : null}
-					{colors}
 					{ props.short ? null : cardDetail }
 				</li>
 			)

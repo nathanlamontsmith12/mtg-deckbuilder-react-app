@@ -172,7 +172,7 @@ class Search extends Component {
 			<div>
 				{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={this.state.viewLow} /> : null }
 				{ this.state.searching ? searching : searchBar}
-				{ this.state.results ? <CardSheet viewBtns={this.state.viewBtns} cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} addToCardSheet={this.props.addToCardSheet} /> : null }
+				{ this.state.results ? <CardSheet viewBtns={this.state.viewBtns} cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} priors={this.props.priors} addToCardSheet={this.props.addToCardSheet} /> : null }
 			</div>
 		)
 	}
