@@ -13,7 +13,7 @@ class Dashboard extends Component {
 			loggedIn: props.authData.loggedIn,
 			loggedInAs: props.authData.loggedInAs,
 			userId: props.authData.userId,
-			upResults: null,
+			upResults: [],
 			query: "",
 			view: null,
 			cardsToAdd: [],
@@ -29,8 +29,6 @@ class Dashboard extends Component {
 		// (also the DIV id)
 
 		const cardToAdd = this.state.upResults.find( (card) => {
-			console.log(card);
-			console.log(card.id);
 			if (card.id === cardId) {
 				return true 
 			} else {
@@ -60,7 +58,30 @@ class Dashboard extends Component {
 		// then set state to initial (partially)
 		try {
 
+			const URL = "http://localhost:9000/card";
 
+			const reqBody = JSON.stringify({cardsToAdd: this.state.cardsToAdd, userId: this.state.userId});
+
+			const response = await fetch(URL, {
+				method: "POST",
+				body: reqBody,
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if(!response.ok) {
+				throw Error(response.statusText)
+			}
+
+			this.setState({
+				query: "",
+				view: null,
+				cardsToAdd: [],
+			})
+
+			this.getUser()
 
 		} catch (err) {
 			console.log(err)
@@ -68,10 +89,6 @@ class Dashboard extends Component {
 		}
 	}
 	removeFromList = (cardId) => {
-
-		// make sure that we have access to the event and currentTarget, the ID of which contains the card's ID 
-		// (also the DIV id)
-
 
 		const newCardsToAddArray = this.state.cardsToAdd;
 
@@ -91,23 +108,20 @@ class Dashboard extends Component {
 			upResults: results
 		})
 	}
-	async componentDidMount(){
-
-		// get rid of footer; authenticate user: 
-
-		document.querySelector("footer").style.display = "none";
-
+	authenticate = () => {
 		if (!this.props.authData.loggedIn) {
 			this.props.setLogOut();
 			this.props.history.push("/auth");
-			return
+			return false
+		} else {
+			return true
 		}
-
+	}
+	getUser = async () => {
 		// get info about USER: 
 		try {
-			const URL = "http://localhost:9000/user/" + this.state.userId;
 
-			console.log(URL);
+			const URL = "http://localhost:9000/user/" + this.state.userId;
 
 			const response = await fetch(URL, {
 				method: "GET",
@@ -123,19 +137,20 @@ class Dashboard extends Component {
 
 			const user = await response.json()
 
-			console.log(user);
-
 			let cardpoolData = [];
 
 			if (user.data.cardpool) {
 				cardpoolData = user.data.cardpool
 			}
 
+			const currResults = this.state.upResults;
+
 			this.setState({
 				decks: user.data.decks,
 				cardpool: cardpoolData,
 				faveCards: user.data.faveCards,
 				hiddenCards: user.data.hiddenCards,
+				upResults: currResults
 			})
 
 		} catch (err) {
@@ -143,6 +158,24 @@ class Dashboard extends Component {
 			this.props.setLogOut();
 			this.props.history.push("/auth")
 		}	
+	}
+	async componentDidMount(){
+		try {
+
+			if(!this.authenticate()) {
+				return
+			};
+
+			// get rid of footer
+			document.querySelector("footer").style.display = "none";
+
+			await this.getUser();
+
+		} catch (err) {
+			console.log(err);
+			return err	
+		}
+
 	}
 	render(){
 
@@ -152,18 +185,23 @@ class Dashboard extends Component {
 			userId: this.state.userId,
 		}
 
-		const allPriors = this.state.cardpool.concat(this.state.cardsToAdd);
+		// get the "priors" -- the ids for all cards that need to be displayed differently 
+		const cardpoolPriors = this.state.cardpool.map( (card) => {
+			return card.data.id
+		})
 
-		const priors = allPriors.map( card => card.id );
+		const cardAddPriors = this.state.cardsToAdd.map ((card) => {
+			return card.id
+		})
 
-		console.log(this.state);
+		const priors = cardpoolPriors.concat(cardAddPriors);
 
 		return (
 			<div id="dashboard">
 				<div className="leftDash">
 					<UserNav />
 					<div className="searchDash">
-						<Search priors={priors} passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
+						<Search passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
 					</div>
 				</div>
 				<div className="rightDash">
