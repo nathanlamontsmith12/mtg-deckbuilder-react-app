@@ -4,75 +4,79 @@ const CardSheet = (props) => {
 
 	let cards = <p>&nbsp;</p>
 
-	if (props.cards.length > 0) {
-		cards = props.cards.map((card, i)=>{
+	if (!props.cards) {
+		return (<div> </div>)
+	} else {
+		if (props.cards.length > 0) {
+			cards = props.cards.map((card, i)=>{
 
-			let colors = "Colorless";
+				let colors = "Colorless";
 
-			if (card.colors.length === 1) {
-				colors = card.colors[0];
-			}
+				if (card.colors.length === 1) {
+					colors = card.colors[0];
+				}
 
 
-			if (card.colors.length > 1) {
+				if (card.colors.length > 1) {
 
-				colors = "";
+					colors = "";
 
-				for (let q = 0; q < card.colors.length; q++) {
-					colors += card.colors[q];
-					if (q < card.colors.length - 1) {
-						colors += " / ";
+					for (let q = 0; q < card.colors.length; q++) {
+						colors += card.colors[q];
+						if (q < card.colors.length - 1) {
+							colors += " / ";
+						}
 					}
 				}
-			}
 
 
-			let creatureStrength = "";
+				let creatureStrength = "";
 
-			if (card.power && card.toughness) {
-				creatureStrength = `Power: ${card.power} / Toughness: ${card.toughness}`
-			}
-
-			const cardDetail = <div>{colors}<br />{card.manaCost}<br /> {card.type}<br />{card.setName}<br />{card.rarity}{ creatureStrength ? <div>{creatureStrength} </div> : null}<br />{card.text}<br /><br /></div>
-
-			let idName = card.id;
-
-			if (props.short) {
-				idName = "short-" + card.id;
-			}
-
-			// check if card is already in the User's cardpool: 
-			let include = true;
-
-			if (props.priors) {
-				if (props.priors.includes((card.id)) ) {
-					include = false
+				if (card.power && card.toughness) {
+					creatureStrength = `Power: ${card.power} / Toughness: ${card.toughness}`
 				}
-			}
 
-			return (
-				<li key={`card-${i}`} id={idName} >
-					<strong>{card.name}</strong>
-					<br /> 
-					{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
-					{ props.addToCardSheet && include ? <button id={`addBtn-${card.id}`} onClick={props.addToCardSheet.bind(this, card.id)}> Add to Card List </button> : null }
-					{ props.addToCardSheet && !include ? <button disabled={true}> Add to Card List </button> : null }
-					{ props.removeFromList ? <button id={`removeBtn-${card.id}`} onClick={props.removeFromList.bind(this, card.id)}> Remove </button> : null }
-					{ props.viewBtns ? <br /> : null}
-					{ props.short ? null : cardDetail }
-				</li>
-			)
-		})
+				const cardDetail = <div>{colors}<br />{card.manaCost}<br /> {card.type}<br />{card.setName}<br />{card.rarity}{ creatureStrength ? <div>{creatureStrength} </div> : null}<br />{card.text}<br /><br /></div>
+
+				let idName = card.id;
+
+				if (props.short) {
+					idName = "short-" + card.id;
+				}
+
+				// check if card is already in the User's cardpool: 
+				let include = true;
+
+				if (props.priors) {
+					if (props.priors.includes((card.id)) ) {
+						include = false
+					}
+				}
+
+				return (
+					<li key={`card-${i}`} id={idName} >
+						<strong>{card.name}</strong>
+						<br /> 
+						{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
+						{ props.addToCardSheet && include ? <button id={`addBtn-${card.id}`} onClick={props.addToCardSheet.bind(this, card.id)}> Add </button> : null }
+						{ props.addToCardSheet && !include ? <button disabled={true}> Add to Card List </button> : null }
+						{ props.removeFromList ? <button id={`removeBtn-${card.id}`} onClick={props.removeFromList.bind(this, card.id)}> Remove </button> : null }
+						{ props.viewBtns ? <br /> : null}
+						{ props.short ? null : cardDetail }
+					</li>
+				)
+			})
+		}
+
+		return (
+			<div>
+				<ul className = "cardSheet">
+					{ props.searched ? cards : null }
+				</ul>
+				{ props.addToCardpool ? <button onClick={props.addToCardpool}> Save Your Cards </button> : null }
+			</div>
+		)	
 	}
-
-	return (
-		<div>
-			<ul className = "cardSheet">
-				{ props.searched ? cards : null }
-			</ul>
-			{ props.addToCardpool ? <button onClick={props.addToCardpool}> Save Your Cards </button> : null }
-		</div>
-	)
 }
 
 export default CardSheet;

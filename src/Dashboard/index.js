@@ -17,10 +17,10 @@ class Dashboard extends Component {
 			query: "",
 			view: null,
 			cardsToAdd: [],
-			decks: null,
+			decks: [],
 			cardpool: [],
-			faveCards: null,
-			hiddenCards: null
+			faveCards: [],
+			hiddenCards: []
 		}
 	}
 	addToCardSheet = (cardId) => {
@@ -205,6 +205,7 @@ class Dashboard extends Component {
 					</div>
 				</div>
 				<div className="rightDash">
+					<h4>Add to Your CardPool </h4>
 					{ this.state.cardsToAdd && this.state.cardsToAdd.length > 0 ? <CardSheet short={true} addToCardpool={this.addToCardpool} removeFromList={this.removeFromList} viewBtns={false} searched={true} cards={this.state.cardsToAdd} viewCard={null} /> : null }
 				</div>
 			</div>
