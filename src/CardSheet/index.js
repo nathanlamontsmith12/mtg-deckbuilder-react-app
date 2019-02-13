@@ -38,6 +38,8 @@ const CardSheet = (props) => {
 					<strong>{card.name}</strong>
 					<br /> 
 					{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
+					{ props.addToCardSheet ? <button onClick={props.addToCardSheet.bind(this, card.id)}> Add to Card List </button> : null }
+					{ props.removeFromList ? <button onClick={props.removeFromList.bind(this, card.id)}> Remove </button> : null }
 					{ props.viewBtns ? <br /> : null}
 					{colors}
 					<br />
@@ -63,6 +65,7 @@ const CardSheet = (props) => {
 			<ul className = "cardSheet">
 				{ props.searched ? cards : null }
 			</ul>
+			{ props.addToCardpool ? <button onClick={props.addToCardpool}> Save Your Cards </button> : null }
 		</div>
 	)
 }

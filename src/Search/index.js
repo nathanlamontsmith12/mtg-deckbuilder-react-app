@@ -92,6 +92,12 @@ class Search extends Component {
 				searched: true,
 				results: newCardArray
 			})
+
+			const resultsToSendUp = this.state.results;
+
+			if (this.props.passResultsUp) {
+				this.props.passResultsUp(resultsToSendUp);
+			}
 		} catch (err) {
 			alert("Error: Search Failed");
 			console.log(err);
@@ -136,6 +142,9 @@ class Search extends Component {
 			view: {name: cardToView.name, url: cardToView.imageUrl, id: id}
 		})
 	}
+	componentDidMount(){
+		document.querySelector("footer").style.display = "flex";
+	}
 	render(){
 
 		const authData = {
@@ -163,7 +172,7 @@ class Search extends Component {
 			<div>
 				{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={this.state.viewLow} /> : null }
 				{ this.state.searching ? searching : searchBar}
-				{ this.state.results ? <CardSheet viewBtns={this.state.viewBtns} cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} /> : null }
+				{ this.state.results ? <CardSheet viewBtns={this.state.viewBtns} cards={this.state.results} searched={this.state.searched} viewCard={this.viewCard} addToCardSheet={this.props.addToCardSheet} /> : null }
 			</div>
 		)
 	}

@@ -14,9 +14,55 @@ class Decks extends Component {
 			userId: props.authData.userId,
 			decks: null,
 			cardpool: null,
-			favecards: null,
-			results: null,
-			query: ""
+			faveCards: null,
+			hiddenCards: null,
+			results: [null],
+			query: "",
+			view: null
+		}
+	}
+	async componentDidMount(){
+
+		document.querySelector("footer").style.display = "none";
+
+		if (!this.props.authData.loggedIn) {
+			this.props.setLogOut();
+			this.props.history.push("/auth");
+			return
+		}
+
+		try {
+			const URL = "http://localhost:9000/user/" + this.state.userId;
+
+			console.log(URL);
+
+			const response = await fetch(URL, {
+				method: "GET",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+
+			const user = await response.json()
+
+			console.log(user);
+
+			this.setState({
+				decks: user.data.decks,
+				cardpool: user.data.cardpool,
+				faveCards: user.data.faveCards,
+				hiddenCards: user.data.hiddenCards,
+			})
+
+		} catch (err) {
+			alert("Error - failed to load user data");
+			this.props.setLogOut();
+			this.props.history.push("/auth")
 		}
 	}
 	render(){
@@ -24,7 +70,8 @@ class Decks extends Component {
 			<div id="dashboard">
 				<div className="leftDash">
 					<UserNav />
-					<div className="cardPool">
+					<div className="deckList">
+						<h2> DECKS </h2>
 						{ this.state.cardpool ? <CardSheet viewBtns={false} searched={true} cards={this.state.cardpool} viewCard={null} /> : null }
 					</div>
 				</div>

@@ -127,7 +127,6 @@ footer {
 
 
 /* ========== DASHBOARD  ========== */
-
 #dashboard {
 	display: flex;
 	justify-content: stretch;
@@ -161,16 +160,6 @@ footer {
 	justify-content: center;
 }
 
-.searchDash {
-	border: 1px black solid;
-	height: calc(100% - 120px);
-	margin-top: 20px;
-}
-
-.searchDash > * {
-	margin-left: 20px;
-}
-
 .rightDash {
 	min-height: calc(100vh - 220px);
 	width: 300px;
@@ -181,6 +170,43 @@ footer {
 	background-color: lightgrey;
 }
 
+
+/* ========== DASHBOARD -- SEARCH  ========== */
+.searchDash {
+	border: 1px black solid;
+	height: calc(100% - 120px);
+	margin-top: 20px;
+}
+
+.searchDash > * {
+	margin-left: 20px;
+}
+
+
+
+/* ========== DASHBOARD -- CARDS  ========== */
+.cardPool {
+	border: 1px black solid;
+	height: calc(100% - 120px);
+	margin-top: 20px;
+}
+
+.cardPool h2 {
+	margin-left: 20px;
+}
+
+/* ========== DASHBOARD -- DECKS  ========== */
+.deckList {
+	border: 1px black solid;
+	height: calc(100% - 120px);
+	margin-top: 20px;
+}
+
+.deckList h2 {
+	margin-left: 20px;
+}
+
+/* ========== MEDIA QUERIES  ========== */
 @media (max-width: 755px) {
 	.rightDash {
 		position: sticky;

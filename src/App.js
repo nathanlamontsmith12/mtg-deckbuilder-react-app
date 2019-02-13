@@ -71,18 +71,18 @@ class App extends Component {
 				<div className="mainCon">
 					<section>
 						<Switch>
-							{ access ? <Route exact path="/" render={ (props) => <Dashboard {...props} authData={authData} /> } /> : <Route exact path="/" render={ (props) => <Search {...props} authData={authData} viewBtns={true} viewLow={true} />} /> }
+							{ access ? <Route exact path="/" render={ (props) => <Dashboard {...props} setLogOut={this.setLogOut} authData={authData} /> } /> : <Route exact path="/" render={ (props) => <Search {...props} authData={authData} viewBtns={true} viewLow={true} />} /> }
 							<Route 
 								exact path="/auth" 
 								render={ (props) => <Authorization {...props} authData={authData} setLogIn={this.setLogIn} setLogOut={this.setLogOut} />} 
 							/>
 							<Route 
 								exact path="/decks" 
-								render={ (props) => <Decks {...props} authData={authData} /> }
+								render={ (props) => <Decks {...props} authData={authData} setLogOut={this.setLogOut} /> }
 							/>
 							<Route 
 								exact path="/cards"
-								render={ (props) => <Cards {...props} authData={authData} /> } 
+								render={ (props) => <Cards {...props} authData={authData} setLogOut={this.setLogOut} /> } 
 							/>
 							<Route 
 								component = { My404 } 

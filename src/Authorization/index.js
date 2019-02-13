@@ -206,6 +206,9 @@ class Authorization extends Component {
 			return err
 		}
 	}
+	componentDidMount () {
+		document.querySelector("footer").style.display = "flex";
+	}
 	render(){
 
 		const notLoggedIn =	
