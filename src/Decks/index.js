@@ -3,7 +3,7 @@ import UserNav from "../UserNav";
 import DeckList from "../DeckList";
 import DeckView from "../DeckView";
 import CardSheet from "../CardSheet";
-import newDeckForm from "../NewDeckForm";
+import NewDeck from "../NewDeck";
 // need deckview 
 // need decklist 
 
@@ -18,14 +18,12 @@ class Decks extends Component {
 			cardsToAdd: [],
 			decks: [],
 			new: false,
+			edit: false,
 			cardpool: [],
 			faveCards: [],
 			hiddenCards: [],
 			thisDeck: null,
 			thisDeckName: null,
-			newDeckName: null,
-			newDeckSDesc: null,
-			newDeckLDesc: null,
 			processing: false
 		}
 	}
@@ -211,6 +209,9 @@ class Decks extends Component {
 			})
 		}	
 	}
+	setDeck = (deck) => {
+		// SET STATE DATA TO FOCUS ON SPECIFIC DECK 
+	}
 	async componentDidMount(){
 		try {
 			if(!this.authenticate()) {
@@ -232,7 +233,7 @@ class Decks extends Component {
 			new: true
 		})
 	}
-	newDeckModeOn = () => {
+	newDeckModeOff = () => {
 		this.setState({
 			new: false
 		})
@@ -254,6 +255,9 @@ class Decks extends Component {
 		}
 
 
+
+
+
 		let procStyle = null;
 
 		if (this.state.processing) {
@@ -268,15 +272,14 @@ class Decks extends Component {
 		// SOME STUFF: could make it false
 
 		let display = 
-			<div id="dashboard">
+			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
 					<UserNav />
 					<div className="deckList"> 
-						{ newDeckAccess ? <button disabled={false} > New Deck </button> : <button disabled={true} onClick={this.newDeckModeOn} > New Deck </button> }
-						{ this.state.thisDeck ? <h2> {this.state.thisDeckName} </h2> : <h2> YOUR CARDPOOL </h2> }
+						{ this.state.thisDeck ? <h2> {this.state.thisDeckName} </h2> : <h2> YOUR DECKS </h2> }
+						{ newDeckAccess ? <button onClick={this.newDeckModeOn} > New Deck </button> : <button disabled={true}> New Deck </button> }
 						{ !this.state.thisDeck && !this.state.new ? <CardSheet deck={true} viewBtns={true} searched={true} cards={this.state.cardpool} viewCard={null} /> : null }
 						{ this.state.thisDeck && !this.state.new ? <DeckView /> : null }
-						{ this.state.new ? <NewDeckForm /> : null }
 					</div>
 				</div>
 				<div className="rightDash">
@@ -286,8 +289,8 @@ class Decks extends Component {
 
 		if (this.state.new) {
 			display = 
-				<div>
-					<NewDeckForm />
+				<div className="newDeck">
+					<NewDeck edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
 				</div>
 		}
 
