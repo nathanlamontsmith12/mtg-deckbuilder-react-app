@@ -58,9 +58,9 @@ const CardSheet = (props) => {
 						<strong>{card.name}</strong>
 						<br /> 
 						{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
-						{ props.deleteCard ? <div><button onClick={this.deleteCard}> Delete </button> Warning: This will remove the card from your cardpool, and all your decks! </div> : null }
+						{ props.deleteCard ? <button onClick={props.deleteCard.bind(this, card.id)}>Delete</button> : null }
 						{ props.addToCardSheet && include ? <button id={`addBtn-${card.id}`} onClick={props.addToCardSheet.bind(this, card.id)}> Add </button> : null }
-						{ props.addToCardSheet && !include ? <button disabled={true}> Add to Card List </button> : null }
+						{ props.addToCardSheet && !include ? <button disabled={true}> Add </button> : null }
 						{ props.removeFromList ? <button id={`removeBtn-${card.id}`} onClick={props.removeFromList.bind(this, card.id)}> Remove </button> : null }
 						{ props.viewBtns ? <br /> : null}
 						{ props.short ? null : cardDetail }
@@ -68,7 +68,6 @@ const CardSheet = (props) => {
 				)
 			})
 		}
-
 		return (
 			<div>
 				<ul className = "cardSheet">

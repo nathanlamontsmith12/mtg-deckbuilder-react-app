@@ -34,9 +34,8 @@ class Cards extends Component {
 
 		const adjId = "short-" + divId;
 		// reset opacity to 1 for the div of viewed card: 
-
+		
 		const thisDiv = document.getElementById(adjId);
-
 		thisDiv.style.opacity = "1";
 
 		this.setState({
@@ -68,7 +67,6 @@ class Cards extends Component {
 		})
 
 		// make div opaque -- div ID was set to Card ID so this is easy to find: 
-
 		const thisDiv = document.getElementById(adjId);
 
 		thisDiv.style.opacity = "0.3";
@@ -77,8 +75,11 @@ class Cards extends Component {
 			view: cardToView.data
 		})
 	}
-	deleteCard = () => {
+	deleteCard = (id) => {
 		// REMOVE card entirely from the User's data 
+		console.log("DELETE CARD: ", id) 
+		// REMEMBER to set state so that card is removed 
+		// AND to set it to "default" (null) view 
 	}
 	getUser = async () => {
 		// get info about USER: 
@@ -99,8 +100,6 @@ class Cards extends Component {
 			}
 
 			const user = await response.json()
-
-			console.log(user);
 
 			let cardpoolData = [];
 
@@ -138,7 +137,6 @@ class Cards extends Component {
 		}
 	}
 	render(){
-		console.log(this.state);
 
 		const cards = this.state.cardpool.map((card)=>{
 			return card.data
@@ -164,8 +162,7 @@ class Cards extends Component {
 					</div>
 				</div>
 				<div className="rightDash">
-					<h4> &nbsp; &nbsp; View Card </h4>
-					<EditView defaultView={this.defaultView} view={this.state.view} />
+					<EditView deleteCard={this.deleteCard} defaultView={this.defaultView} view={this.state.view} />
 				</div>
 			</div>
 		)
