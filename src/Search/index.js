@@ -62,7 +62,9 @@ class Search extends Component {
 
 			const queryString = JSON.stringify(query);
 
-			const response = await fetch("http://localhost:9000/search/cards/name", {
+			const URL = process.env.REACT_APP_SERVER_URL + "search/cards/name";
+
+			const response = await fetch(URL, {
 				method: "POST",
 				body: queryString,
 				credentials: "include",

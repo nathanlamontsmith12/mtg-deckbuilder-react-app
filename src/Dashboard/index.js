@@ -62,7 +62,8 @@ class Dashboard extends Component {
 				processing: true
 			})
 
-			const URL = "http://localhost:9000/card";
+
+			const URL = process.env.REACT_APP_SERVER_URL + "card";
 
 			const reqBody = JSON.stringify({cardsToAdd: this.state.cardsToAdd, userId: this.state.userId});
 
@@ -132,7 +133,7 @@ class Dashboard extends Component {
 				processing: true
 			})
 
-			const URL = "http://localhost:9000/user/" + this.state.userId;
+			const URL = process.env.REACT_APP_SERVER_URL + "user/" + this.state.userId;
 
 			const response = await fetch(URL, {
 				method: "GET",

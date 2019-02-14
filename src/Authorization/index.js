@@ -108,7 +108,9 @@ class Authorization extends Component {
 
 			const bodyString = JSON.stringify(body);
 
-			const response = await fetch("http://localhost:9000/user/login", {
+			const URL = process.env.REACT_APP_SERVER_URL + "user/login";
+
+			const response = await fetch(URL, {
 				method: "POST",
 				body: bodyString,
 				credentials: "include",
@@ -177,7 +179,9 @@ class Authorization extends Component {
 
 			const bodyString = JSON.stringify(body);
 			
-			const response = await fetch("http://localhost:9000/user", {
+			const URL = process.env.REACT_APP_SERVER_URL + "user";
+
+			const response = await fetch(URL, {
 				method: "POST",
 				body: bodyString,
 				credentials: "include",

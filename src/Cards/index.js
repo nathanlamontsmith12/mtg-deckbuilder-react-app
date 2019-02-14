@@ -93,7 +93,7 @@ class Cards extends Component {
 			})
 
 			// send it to the server 
-			const URL = "http://localhost:9000/card/remove"
+			const URL = process.env.REACT_APP_SERVER_URL + "card/remove";
 
 			const reqBody = JSON.stringify({cardToRemove: cardToRemove, userId: this.state.userId}); 
 
@@ -132,7 +132,7 @@ class Cards extends Component {
 				processing: true
 			})
 
-			const URL = "http://localhost:9000/user/" + this.state.userId;
+			const URL = process.env.REACT_APP_SERVER_URL + "user/" + this.state.userId;
 
 			const response = await fetch(URL, {
 				method: "GET",
