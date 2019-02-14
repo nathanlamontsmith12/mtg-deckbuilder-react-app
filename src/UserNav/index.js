@@ -5,13 +5,13 @@ const UserNav = (props) => {
 	return (
 		<div className="userNav">
 			<Link to="/"><div className="divBtn">
-				My Search
+				Search
 			</div></Link>
 			<Link to="/cards"><div className="divBtn">
-				My Cards
+				CardPool
 			</div></Link>
 			<Link to="/decks"><div className="divBtn">
-				My Decks
+				Decks
 			</div></Link>				
 		</div>
 	)

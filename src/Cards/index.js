@@ -37,6 +37,8 @@ class Cards extends Component {
 			}
 		}); 
 
+		console.log(cardToAdd)
+
 		if (cardToAdd) {
 
 			const newCardAddArray = this.state.cardsToAdd;
@@ -58,9 +60,12 @@ class Cards extends Component {
 	}
 	removeFromList = (cardId) => {
 
-		const newCardsToAddArray = this.state.cardsToAdd;
+		// map card appropriately:  
+		const newCardsToAddArray = this.state.cardsToAdd.map((card)=>{
+			return card.data
+		});
 
-		const index = this.state.cardsToAdd.findIndex( (card) => card.id === cardId);
+		const index = this.state.cardsToAdd.findIndex( (card) => card.data.id === cardId);
 
 		newCardsToAddArray.splice(index, 1);
 
@@ -68,8 +73,11 @@ class Cards extends Component {
 			cardsToAdd: newCardsToAddArray
 		})
 
+		// adjust ID: 
+		const adjId = "short-" + cardId;
+
 		// this should work, regardless of whether EVT carries through: 
-		document.getElementById(cardId).style.display = "block";
+		document.getElementById(adjId).style.display = "block";
 	}
 	defaultView = (divId) => {
 
@@ -184,6 +192,10 @@ class Cards extends Component {
 			return card.data
 		})
 
+		const cardsToEdit = this.state.cardsToAdd.map((card)=>{
+			return card.data
+		})
+
 		const authData = {
 			loggedIn: this.state.loggedIn,
 			loggedInAs: this.state.loggedInAs,
@@ -195,13 +207,14 @@ class Cards extends Component {
 				<div className="leftDash">
 					<UserNav />
 					<div className="cardPool">
-						<h2> CARDS </h2>
+						<h2> YOUR CARDPOOL </h2>
 						{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
-						{ this.state.cardpool ? <CardSheet priors={this.state.hiddenCards} short={true} addToCardSheet={this.addToCardSheet} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
+						{ this.state.cardpool ? <CardSheet edit={true} short={true} addToCardSheet={this.addToCardSheet} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
 					</div>
 				</div>
 				<div className="rightDash">
-					{ this.state.cardpool ? <CardSheet short={true} viewBtns={false} searched={true} cards={this.cardsToAdd} viewCard={null} removeFromList={this.removeFromList} /> : null }
+					<h4> &nbsp; &nbsp; Edit Cards </h4>
+					{ this.state.cardpool ? <CardSheet edit={true} short={true} viewBtns={false} searched={true} cards={cardsToEdit} viewCard={null} removeFromList={this.removeFromList} /> : null }
 				</div>
 			</div>
 		)

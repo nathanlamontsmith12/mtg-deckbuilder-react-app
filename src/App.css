@@ -115,6 +115,7 @@ footer {
 }
 
 
+
 /* ========== Card VIEW ========== */
 .cardViewOuter {
 	position: fixed;
@@ -192,6 +193,11 @@ footer {
 	z-index: 1;
 	background-color: lightgrey;
 }
+
+.rightDash h4 {
+	left-margin: 20px;
+}
+
 
 
 /* ========== DASHBOARD -- SEARCH  ========== */
