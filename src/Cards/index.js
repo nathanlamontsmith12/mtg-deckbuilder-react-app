@@ -223,11 +223,12 @@ class Cards extends Component {
 					</div>
 				</div>
 				<div className="rightDash">
-					<EditView deleteCard={this.deleteCard} defaultView={this.defaultView} view={this.state.view} />
+					<EditView defaultView={this.defaultView} view={this.state.view} />
 				</div>
 			</div>
 		)
 	}
 }
+// deleteCard={this.deleteCard}
 // { this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
 export default Cards;

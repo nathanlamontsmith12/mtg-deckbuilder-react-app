@@ -9,32 +9,93 @@ class NewDeck extends Component {
 			loggedInAs: props.authData.loggedInAs,
 			userId: props.authData.userId,
 			name: "",
-			shortDescription: "",
-			longDescription: "",
+			description_short: "",
+			description_long: "",
 			message: "",
-			origDescription: ""
+			origDescription: "",
+			processing: false
 		}
 	}
 	closeOut = () => {
 		this.setState({
 			name: "",
-			shortDescription: "",
-			longDescription: "hey",
-			message: ""
+			description_short: "",
+			description_long: "",
+			message: "",
+			processing: false
 		})
 		this.props.newDeckModeOff();
 	}
 	createDeck = async () => {
-		this.setState({
-			message: ""
-		})
-		// save deck in DB, then set deck, then close out
+		try {
+			this.setState({
+				message: ""
+			})
+			// save deck in DB, then set deck, then close out
 
-		// POST request to deck 
+			// but first, check to make sure the name is reasonable: 
+			if (!this.state.name || this.state.name.length > 15) {
+				this.setState({
+					message: "Invalid Deck Name: Empty field, or Over 15 characters",
+					name: ""
+				})
+				return
+			} 
 
-		// this.props.setDeck(deck);
-		// this.closeOut();
+			if (this.state.description_short.length > 40) {
+				this.setState({
+					message: "Invalid Short Description: Over 40 characters",
+					name: ""
+				})
+				return
+			} 
+
+			this.setState({
+				processing: true
+			})
+
+			const URL = process.env.REACT_APP_SERVER_URL + "deck";
+
+			const reqBody = JSON.stringify({
+				userId: this.state.userId,
+				name: this.state.name,
+				description_short: this.state.description_short,
+				description_long: this.state.description_long
+			})
+
+			const response = await fetch(URL, {
+				method: "POST",
+				credentials: "include",
+				body: reqBody,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+
+			const parsedResponse = await response.json();
+
+			const deck = parsedResponse.data;
+
+			// close stuff out 
+			this.closeOut();
+
+			this.props.setDeck(deck);
+
+		} catch (err) {
+			alert("Error: " + err);
+
+			this.setState({
+				processing: false	
+			})
+			this.props.setLogOut();
+			// this.props.history.push("/auth")
+		}	
 	}
+
 	editDeck = async () => {
 
 	}
@@ -56,12 +117,13 @@ class NewDeck extends Component {
 				<br />
 				<button onClick={this.closeOut}> CLOSE </button> <br />
 				<h1>NEW DECK</h1>
+				{ this.state.message ? <h3>{this.state.message}</h3> : <h3>&nbsp;</h3> }
 				<form className="newDeckForm">
 					<input name="name" value={this.state.name} onChange={this.handleInput} placeholder="Deck Name" /> <br />
-					<input name="shortDescription" value={this.state.shortDescription} onChange={this.handleInput} placeholder="Short description" /> <br />
+					<input name="description_short" value={this.state.description_short} onChange={this.handleInput} placeholder="Short description" /> <br />
 					<h4> Long Description: </h4>
 					{ this.state.edit ? <p>{this.state.origDescription} </p> : null }
-					<textarea cols="32" rows="5" name="longDescription" value={this.state.longDescription} onChange={this.handleInput}> </textarea> <br />
+					<textarea cols="32" rows="5" name="description_long" value={this.state.description_long} onChange={this.handleInput}> </textarea> <br />
 				</form> <br />
 				{ this.state.edit ? <button onClick={this.editDeck}> SAVE CHANGES </button> : <button onClick={this.createDeck}> CREATE NEW DECK </button> }
 			</div>

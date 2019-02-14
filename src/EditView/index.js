@@ -12,7 +12,7 @@ const EditView = (props) => {
 				<button onClick={props.defaultView.bind(this, props.view.id)}>CLOSE</button> <br />
 				<img alt={props.view.name} src={props.view.imageUrl} />
 				<br />
-				<button onClick={props.deleteCard.bind(this, props.view.id)}>DELETE</button> 
+				{ props.deleteCard ? <button onClick={props.deleteCard.bind(this, props.view.id)}>DELETE</button> : null }
 			</div>
 	}
 

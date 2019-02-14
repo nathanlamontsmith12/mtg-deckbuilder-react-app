@@ -210,8 +210,13 @@ class Decks extends Component {
 			})
 		}	
 	}
-	setDeck = (deck) => {
-		// SET STATE DATA TO FOCUS ON SPECIFIC DECK 
+	setDeck = async (thisDeck) => {
+
+		await this.getUser();
+
+		this.setState({
+			deck: thisDeck
+		}) 
 	}
 	async componentDidMount(){
 		try {
@@ -272,6 +277,8 @@ class Decks extends Component {
 
 		// SOME STUFF: could make it false
 
+		console.log(this.state)
+
 		let display = 
 			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
@@ -291,7 +298,7 @@ class Decks extends Component {
 		if (this.state.new) {
 			display = 
 				<div className="newDeck">
-					<NewDeck edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
+					<NewDeck setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
 				</div>
 		}
 
