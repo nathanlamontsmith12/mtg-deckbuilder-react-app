@@ -17,6 +17,7 @@ class Cards extends Component {
 			cardpool: [],
 			faveCards: [],
 			hiddenCards: [],
+			processing: false
 		}
 	}
 	authenticate = () => {
@@ -79,6 +80,10 @@ class Cards extends Component {
 
 		try {
 
+			this.setState({
+				processing: true
+			})
+
 			// find card: 
 			const cardToRemove = this.state.cardpool.find((card)=>{
 				if (card.apid === apid) {
@@ -110,6 +115,9 @@ class Cards extends Component {
 
 		} catch (err) {
 			console.log(err)
+			this.setState({
+				processing: false	
+			})
 			return err
 		}
 
@@ -120,6 +128,10 @@ class Cards extends Component {
 	getUser = async () => {
 		// get info about USER: 
 		try {
+
+			this.setState({
+				processing: true
+			})
 
 			const URL = "http://localhost:9000/user/" + this.state.userId;
 
@@ -148,12 +160,16 @@ class Cards extends Component {
 				cardpool: cardpoolData,
 				faveCards: user.data.faveCards,
 				hiddenCards: user.data.hiddenCards,
+				processing: false
 			})
 
 		} catch (err) {
 			alert("Error - failed to load user data");
 			this.props.setLogOut();
 			this.props.history.push("/auth")
+			this.setState({
+				processing: false	
+			})
 		}	
 	}
 	async componentDidMount(){
@@ -188,8 +204,18 @@ class Cards extends Component {
 			userId: this.state.userId,
 		}
 
+
+		let procStyle = null;
+
+		if (this.state.processing) {
+			procStyle = {
+				opacity: "0.3",
+				zIndex: "-1"
+			}
+		}
+
 		return (
-			<div id="dashboard">
+			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
 					<UserNav />
 					<div className="cardPool">

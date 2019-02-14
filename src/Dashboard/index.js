@@ -89,6 +89,9 @@ class Dashboard extends Component {
 			this.getUser()
 
 		} catch (err) {
+			this.setState({
+				processing: false
+			})
 			console.log(err)
 			return err
 		}
@@ -164,6 +167,9 @@ class Dashboard extends Component {
 			})
 
 		} catch (err) {
+			this.setState({
+				processing: false
+			})
 			alert("Error - failed to load user data");
 			this.props.setLogOut();
 			this.props.history.push("/auth")
@@ -207,23 +213,24 @@ class Dashboard extends Component {
 		const priors = cardpoolPriors.concat(cardAddPriors);
 
 
-		let modalClassName = "allClear"
+		let procStyle = null;
 
 		if (this.state.processing) {
-			modalClassName = "processing"
+			procStyle = {
+				opacity: "0.3",
+				zIndex: "-1"
+			}
 		}
 
-		console.log(this.state)
-
 		return (
-			<div id="dashboard">
-				<div className={"leftDash" + " " + modalClassName}>
+			<div id="dashboard" style={procStyle}>
+				<div className="leftDash">
 					<UserNav />
 					<div className="searchDash">
 						<Search passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
 					</div>
 				</div>
-				<div className={"rightDash" + " " + modalClassName}>
+				<div className="rightDash">
 					<h4> &nbsp; &nbsp; Add to Your CardPool </h4>
 					{ this.state.cardsToAdd && this.state.cardsToAdd.length > 0 ? <CardSheet short={true} addToCardpool={this.addToCardpool} removeFromList={this.removeFromList} viewBtns={false} searched={true} cards={this.state.cardsToAdd} viewCard={null} /> : null }
 				</div> 
