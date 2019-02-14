@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import UserNav from "../UserNav";
 import CardSheet from "../CardSheet";
-import CardView from "../CardView";
 import EditView from "../EditView";
 
 class Cards extends Component {
@@ -194,15 +193,15 @@ class Cards extends Component {
 			return card.data
 		})
 
-		const cardsToEdit = this.state.cardsToAdd.map((card)=>{
-			return card.data
-		})
+		// const cardsToEdit = this.state.cardsToAdd.map((card)=>{
+		// 	return card.data
+		// })
 
-		const authData = {
-			loggedIn: this.state.loggedIn,
-			loggedInAs: this.state.loggedInAs,
-			userId: this.state.userId,
-		}
+		// const authData = {
+		// 	loggedIn: this.state.loggedIn,
+		// 	loggedInAs: this.state.loggedInAs,
+		// 	userId: this.state.userId,
+		// }
 
 
 		let procStyle = null;

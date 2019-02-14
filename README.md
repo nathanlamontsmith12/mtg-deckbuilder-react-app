@@ -1,3 +1,4 @@
+# CardPool
 # Magic: The Gathering Deckbuilder App 
 
 ## React Frontend

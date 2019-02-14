@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import CardSheet from "../CardSheet";
 import Search from "../Search";
-import CardView from "../CardView";
 import UserNav from "../UserNav";
 
 class Dashboard extends Component {
