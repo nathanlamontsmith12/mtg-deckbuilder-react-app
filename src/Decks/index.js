@@ -4,6 +4,7 @@ import DeckList from "../DeckList";
 import DeckView from "../DeckView";
 import CardSheet from "../CardSheet";
 import NewDeck from "../NewDeck";
+import CardView from "../CardView";
 
 
 class Decks extends Component {
@@ -79,7 +80,7 @@ class Decks extends Component {
 			view: null
 		})
 	}
-	viewCard = (id) => {
+	viewCard = (id, deckId) => {
 
 		// adjust for the fact that these divs have ids of the form "short-" + cardId: 
 
@@ -95,7 +96,15 @@ class Decks extends Component {
 
 		// find card to view: 
 
-		const cardToView = this.state.cardpool.find((card)=>{
+		const deckWithCard = this.state.decks.find((deck)=>{
+			if (deck._id.toString() === deckId) {
+				return true
+			} else {
+				return false
+			}
+		})
+
+		const cardToView = deckWithCard.find((card)=>{
 			if (card.data.id === id) {
 				return true
 			} else {
@@ -110,6 +119,18 @@ class Decks extends Component {
 
 		this.setState({
 			view: cardToView.data
+		})
+	}
+	defaultView = (divId) => {
+
+		// reset opacity to 1 for the div of viewed card: 
+
+		const thisDiv = document.getElementById(divId);
+
+		thisDiv.style.opacity = "1";
+
+		this.setState({
+			view: null
 		})
 	}
 	deleteCard = async (apid) => {
@@ -303,6 +324,7 @@ class Decks extends Component {
 					<UserNav />
 					<div className="deckLeftCon"> 
 						<h2> Your Decks </h2>
+						{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
 						<button onClick={this.newDeckModeOn} > New Deck </button>
 						{ !this.state.thisDeck && !this.state.new ? <DeckList decks={this.state.decks} viewDeck={this.viewDeck} editDeck={this.editDeck} /> : null }
 					</div>

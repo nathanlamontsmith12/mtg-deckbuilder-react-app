@@ -1,10 +1,16 @@
 import React from "react";
+import CardSheet from "../CardSheet";
 
 const DeckView = (props) => {
-	return (<h1>EDIT DECKS YO</h1>)
-}
 
-// <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } />
-// <CardSheet viewBtns={false} searched={true} cards={this.state.thisDeck} viewCard={null} />
+	const cards = props.deck.cards;
+
+
+	return (
+		<div> 
+			<CardSheet short={true} viewBtns={true} searched={true} cards={props.cards} viewCard={props.viewCard} deckId={props.deck._id} />
+		</div>
+	)
+}
 
 export default DeckView;

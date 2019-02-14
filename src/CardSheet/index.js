@@ -53,6 +53,12 @@ const CardSheet = (props) => {
 					}
 				}
 
+				let onClickForViewButtons = props.viewCard.bind(null, card.id);
+
+				if (props.deckId) {
+					onClickForViewButtons = props.viewCard.bind(null, card.id, props.deckId);
+				}
+
 				if (props.cardpoolDash) {
 					return (
 						<li className="listCardCon" key={`card-${i}`} id={idName} >
@@ -61,7 +67,7 @@ const CardSheet = (props) => {
 								<span><strong>{card.manaCost}</strong></span>
 							</div>
 							<div className="separate">
-								{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
+								{ props.viewBtns ? <button onClick={onClickForViewButtons}>View</button> : null}
 								{ props.deleteCard ? <button onClick={props.deleteCard.bind(this, card.id)}>Delete</button> : null }
 							</div>
 						</li>
@@ -71,7 +77,7 @@ const CardSheet = (props) => {
 						<li className="listCardCon" key={`card-${i}`} id={idName} >
 							<strong>{card.name}</strong>
 							<br /> 
-							{ props.viewBtns ? <button onClick={props.viewCard.bind(null, card.id)}>View</button> : null}
+							{ props.viewBtns ? <button onClick={onClickForViewButtons}>View</button> : null}
 							{ props.deleteCard ? <button onClick={props.deleteCard.bind(this, card.id)}>Delete</button> : null }
 							{ props.addToCardSheet && include ? <button id={`addBtn-${card.id}`} onClick={props.addToCardSheet.bind(this, card.id)}> Add </button> : null }
 							{ props.addToCardSheet && !include ? <button disabled={true}> Add </button> : null }
