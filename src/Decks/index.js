@@ -4,8 +4,7 @@ import DeckList from "../DeckList";
 import DeckView from "../DeckView";
 import CardSheet from "../CardSheet";
 import NewDeck from "../NewDeck";
-// need deckview 
-// need decklist 
+
 
 class Decks extends Component {
 	constructor (props) {
@@ -210,13 +209,35 @@ class Decks extends Component {
 			})
 		}	
 	}
-	setDeck = async (thisDeck) => {
+	setDeck = async (deckToSet) => {
 
 		await this.getUser();
 
 		this.setState({
-			deck: thisDeck
+			thisDeck: deckToSet,
+			thisDeckName: deckToSet.name,
+			new: false,
+			processing: false
 		}) 
+	}
+	newDeckModeOn = () => {
+		this.setState({
+			new: true
+		})
+	}
+	newDeckModeOff = () => {
+		this.setState({
+			new: false
+		})
+	}
+	viewDeck = (deck) => {
+
+	}
+	clearDeck = () => {
+
+	}
+	editDeck = () => {
+
 	}
 	async componentDidMount(){
 		try {
@@ -233,16 +254,6 @@ class Decks extends Component {
 			console.log(err);
 			return err	
 		}
-	}
-	newDeckModeOn = () => {
-		this.setState({
-			new: true
-		})
-	}
-	newDeckModeOff = () => {
-		this.setState({
-			new: false
-		})
 	}
 	render(){
 	
@@ -279,21 +290,28 @@ class Decks extends Component {
 
 		console.log(this.state)
 
+
+		// let list = "Your Decks";
+
+		// if (!this.state.thisDeck && !this.state.new) {
+		// 	list = "Your CardPool"
+		// }
+
 		let display = 
 			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
 					<UserNav />
-					<div className="deckList"> 
-						{ this.state.thisDeck ? <h2> {this.state.thisDeckName} </h2> : <h2> YOUR DECKS </h2> }
-						{ newDeckAccess ? <button onClick={this.newDeckModeOn} > New Deck </button> : <button disabled={true}> New Deck </button> }
-						{ !this.state.thisDeck && !this.state.new ? <CardSheet deck={true} viewBtns={true} searched={true} cards={this.state.cardpool} viewCard={null} /> : null }
-						{ this.state.thisDeck && !this.state.new ? <DeckView /> : null }
+					<div className="deckLeftCon"> 
+						<h2> Your Decks </h2>
+						<button onClick={this.newDeckModeOn} > New Deck </button>
+						{ !this.state.thisDeck && !this.state.new ? <DeckList decks={this.state.decks} viewDeck={this.viewDeck} editDeck={this.editDeck} /> : null }
 					</div>
 				</div>
 				<div className="rightDash">
-					{ this.state.thisDeck ? <CardSheet viewBtns={false} searched={true} cards={this.state.thisDeck} viewCard={null} /> : null }
+					{ this.state.thisDeck && !this.state.new ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } /> : null }
 				</div>
 			</div>
+
 
 		if (this.state.new) {
 			display = 
@@ -311,3 +329,30 @@ class Decks extends Component {
 }
 
 export default Decks;
+
+
+
+
+		// let display = 
+		// 	<div id="dashboard" style={procStyle}>
+		// 		<div className="leftDash">
+		// 			<UserNav />
+		// 			<div className="deckList"> 
+		// 				{ this.state.thisDeck ? <h2> {this.state.thisDeckName} </h2> : <h2> {list} </h2> }
+		// 				{ newDeckAccess ? <button onClick={this.newDeckModeOn} > New Deck </button> : <button disabled={true}> New Deck </button> }
+		// 				{ !this.state.thisDeck && !this.state.new ? <CardSheet deck={true} viewBtns={true} searched={true} cards={this.state.cardpool} viewCard={null} /> : null }
+		// 				{ this.state.thisDeck && !this.state.new ? <DeckView /> : null }
+		// 			</div>
+		// 		</div>
+		// 		<div className="rightDash">
+		// 			{ this.state.thisDeck ? <CardSheet viewBtns={false} searched={true} cards={this.state.thisDeck} viewCard={null} /> : null }
+		// 		</div>
+		// 	</div>
+
+		// if (this.state.new) {
+		// 	display = 
+		// 		<div className="newDeck">
+		// 			<NewDeck setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
+		// 		</div>
+		// }
+
