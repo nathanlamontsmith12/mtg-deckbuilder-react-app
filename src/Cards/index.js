@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UserNav from "../UserNav";
 import CardSheet from "../CardSheet";
 import CardView from "../CardView";
+import EditView from "../EditView";
 
 class Cards extends Component {
 	constructor (props) {
@@ -26,58 +27,6 @@ class Cards extends Component {
 		} else {
 			return true
 		}
-	}
-	addToCardSheet = (cardId) => {
-
-		const cardToAdd = this.state.cardpool.find( (card) => {
-			if (card.data.id === cardId) {
-				return true 
-			} else {
-				return false 
-			}
-		}); 
-
-		console.log(cardToAdd)
-
-		if (cardToAdd) {
-
-			const newCardAddArray = this.state.cardsToAdd;
-			newCardAddArray.push(cardToAdd);
-
-			this.setState({
-				cardsToAdd: newCardAddArray
-			})
-
-			const adjId = "short-" + cardId;
-
-			// this should work, regardless of whether EVT gets carried through: 
-			document.getElementById(adjId).style.display = "none"
-
-		} else {
-			console.log("ERROR -- card not added");
-			return
-		}
-	}
-	removeFromList = (cardId) => {
-
-		// map card appropriately:  
-		const newCardsToAddArray = this.state.cardsToAdd.map((card)=>{
-			return card.data
-		});
-
-		const index = this.state.cardsToAdd.findIndex( (card) => card.data.id === cardId);
-
-		newCardsToAddArray.splice(index, 1);
-
-		this.setState({
-			cardsToAdd: newCardsToAddArray
-		})
-
-		// adjust ID: 
-		const adjId = "short-" + cardId;
-
-		// this should work, regardless of whether EVT carries through: 
-		document.getElementById(adjId).style.display = "block";
 	}
 	defaultView = (divId) => {
 
@@ -125,8 +74,11 @@ class Cards extends Component {
 		thisDiv.style.opacity = "0.3";
 
 		this.setState({
-			view: {name: cardToView.data.name, url: cardToView.data.imageUrl, id: id}
+			view: cardToView.data
 		})
+	}
+	deleteCard = () => {
+		// REMOVE card entirely from the User's data 
 	}
 	getUser = async () => {
 		// get info about USER: 
@@ -208,17 +160,16 @@ class Cards extends Component {
 					<UserNav />
 					<div className="cardPool">
 						<h2> YOUR CARDPOOL </h2>
-						{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
-						{ this.state.cardpool ? <CardSheet edit={true} short={true} addToCardSheet={this.addToCardSheet} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
+						{ this.state.cardpool ? <CardSheet deleteCard={this.deleteCard} short={true} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
 					</div>
 				</div>
 				<div className="rightDash">
-					<h4> &nbsp; &nbsp; Edit Cards </h4>
-					{ this.state.cardpool ? <CardSheet edit={true} short={true} viewBtns={false} searched={true} cards={cardsToEdit} viewCard={null} removeFromList={this.removeFromList} /> : null }
+					<h4> &nbsp; &nbsp; View Card </h4>
+					<EditView defaultView={this.defaultView} view={this.state.view} />
 				</div>
 			</div>
 		)
 	}
 }
-
+// { this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
 export default Cards;
