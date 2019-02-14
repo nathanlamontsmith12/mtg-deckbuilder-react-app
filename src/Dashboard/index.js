@@ -20,7 +20,8 @@ class Dashboard extends Component {
 			decks: [],
 			cardpool: [],
 			faveCards: [],
-			hiddenCards: []
+			hiddenCards: [],
+			processing: false
 		}
 	}
 	addToCardSheet = (cardId) => {
@@ -57,6 +58,10 @@ class Dashboard extends Component {
 		// got to post array of cards for cardpool back to the server in order to save the new data in the DB
 		// then set state to initial (partially)
 		try {
+
+			this.setState({
+				processing: true
+			})
 
 			const URL = "http://localhost:9000/card";
 
@@ -121,6 +126,10 @@ class Dashboard extends Component {
 		// get info about USER: 
 		try {
 
+			this.setState({
+				processing: true
+			})
+
 			const URL = "http://localhost:9000/user/" + this.state.userId;
 
 			const response = await fetch(URL, {
@@ -150,7 +159,8 @@ class Dashboard extends Component {
 				cardpool: cardpoolData,
 				faveCards: user.data.faveCards,
 				hiddenCards: user.data.hiddenCards,
-				upResults: currResults
+				upResults: currResults,
+				processing: false
 			})
 
 		} catch (err) {
@@ -196,18 +206,27 @@ class Dashboard extends Component {
 
 		const priors = cardpoolPriors.concat(cardAddPriors);
 
+
+		let modalClassName = "allClear"
+
+		if (this.state.processing) {
+			modalClassName = "processing"
+		}
+
+		console.log(this.state)
+
 		return (
 			<div id="dashboard">
-				<div className="leftDash">
+				<div className={"leftDash" + " " + modalClassName}>
 					<UserNav />
 					<div className="searchDash">
 						<Search passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
 					</div>
 				</div>
-				<div className="rightDash">
+				<div className={"rightDash" + " " + modalClassName}>
 					<h4> &nbsp; &nbsp; Add to Your CardPool </h4>
 					{ this.state.cardsToAdd && this.state.cardsToAdd.length > 0 ? <CardSheet short={true} addToCardpool={this.addToCardpool} removeFromList={this.removeFromList} viewBtns={false} searched={true} cards={this.state.cardsToAdd} viewCard={null} /> : null }
-				</div>
+				</div> 
 			</div>
 		)
 	}

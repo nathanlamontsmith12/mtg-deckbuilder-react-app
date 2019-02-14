@@ -75,11 +75,47 @@ class Cards extends Component {
 			view: cardToView.data
 		})
 	}
-	deleteCard = (id) => {
-		// REMOVE card entirely from the User's data 
-		console.log("DELETE CARD: ", id) 
+	deleteCard = async (apid) => {
+
+		try {
+
+			// find card: 
+			const cardToRemove = this.state.cardpool.find((card)=>{
+				if (card.apid === apid) {
+					return true
+				} else {
+					return false
+				}
+			})
+
+			// send it to the server 
+			const URL = "http://localhost:9000/card/remove"
+
+			const reqBody = JSON.stringify({cardToRemove: cardToRemove, userId: this.state.userId}); 
+
+			const response = await fetch(URL, {
+				method: "POST",
+				credentials: "include",
+				body: reqBody,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+
+			await this.getUser();
+
+		} catch (err) {
+			console.log(err)
+			return err
+		}
+
 		// REMEMBER to set state so that card is removed 
 		// AND to set it to "default" (null) view 
+
 	}
 	getUser = async () => {
 		// get info about USER: 
@@ -158,7 +194,7 @@ class Cards extends Component {
 					<UserNav />
 					<div className="cardPool">
 						<h2> YOUR CARDPOOL </h2>
-						{ this.state.cardpool ? <CardSheet deleteCard={this.deleteCard} short={true} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
+						{ this.state.cardpool ? <CardSheet cardpoolDash={true} deleteCard={this.deleteCard} short={true} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
 					</div>
 				</div>
 				<div className="rightDash">
