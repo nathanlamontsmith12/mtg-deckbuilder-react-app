@@ -133,7 +133,7 @@ class NewDeck extends Component {
 				processing: true
 			})
 
-			const URL = process.env.REACT_APP_SERVER_URL + "deck/" + this.props.deck._id.toString();
+			const URL = process.env.REACT_APP_SERVER_URL + "deck/edit/" + this.props.deck._id.toString();
 
 			let DL = this.state.editDL;
 
@@ -148,8 +148,10 @@ class NewDeck extends Component {
 				description_long: DL
 			})
 
+			console.log("reqBody SENT: ", reqBody)
+
 			const response = await fetch(URL, {
-				method: "POST",
+				method: "PATCH",
 				credentials: "include",
 				body: reqBody,
 				headers: {
@@ -163,6 +165,8 @@ class NewDeck extends Component {
 
 			// close stuff out 
 			this.closeOut();
+
+			this.props.clearEdit();
 
 		} catch (err) {
 			alert("Error: " + err);
@@ -182,8 +186,6 @@ class NewDeck extends Component {
 		})
 	}
 	render(){
-
-		console.log("PROPS in NEWDECK: ", this.props)
 
 		let messageClass = "";
 

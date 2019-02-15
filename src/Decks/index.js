@@ -71,6 +71,8 @@ class Decks extends Component {
 			edit: false,
 			thisDeck: null
 		})
+
+		this.getUser();
 	}
 	defaultView = (divId) => {
 
@@ -406,7 +408,7 @@ class Decks extends Component {
 						<div className="innerLeftDash"> 
 							<button onClick={this.clearEdit} > CLOSE </button>
 							<h2> { this.state.thisDeck.view } </h2>
-							{ <NewDeck edit={true} authData={authData} deck={this.state.thisDeck} history={this.props.history} setLogOut={this.props.setLogOut} /> }
+							{ <NewDeck clearEdit={this.clearEdit} edit={true} authData={authData} deck={this.state.thisDeck} history={this.props.history} setLogOut={this.props.setLogOut} /> }
 						</div>
 					</div>
 					<div className="rightDash">
