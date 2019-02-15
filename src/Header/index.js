@@ -15,7 +15,7 @@ const Header = (props) => {
 				</div>
 			</div>
 			<nav>
-				{ props.authData.loggedIn ? <p><small>Logged in as {props.authData.loggedInAs}</small></p> : null }
+				{ props.authData.loggedIn ? <p><small>Logged in as <strong>{props.authData.loggedInAs}</strong></small></p> : null }
 				{ props.authData.loggedIn ? <Link onClick={props.setLogOut} to="/auth"> Logout </Link> : <Link to="/auth">Login / Sign up</Link> }
 				<Link to="/">Home</Link>
 				<Link to="/about">About</Link>

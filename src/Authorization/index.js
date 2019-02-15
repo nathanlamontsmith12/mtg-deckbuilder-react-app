@@ -155,6 +155,11 @@ class Authorization extends Component {
 				this.fail("Invalid username and/or password", true);
 				return
 			} 
+
+			if (this.state.username.length > 15) {
+				this.fail("Invalid username: Over 15 characters", true);
+				return
+			}
 		
 			if (!this.state.email) {
 				this.fail("Invalid email address input", true);
