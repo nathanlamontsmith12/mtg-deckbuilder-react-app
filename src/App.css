@@ -233,18 +233,30 @@ footer {
 
 
 /* ========== DASHBOARD -- DECKS  ========== */
+.deckListItem h4 {
+	margin-bottom: 5px;
+}
 
+.deckListItem button {
+	margin-bottom: 5px;
+}
 
 
 
 /* ========== DASHBOARD -- EDIT DECK FORM  ========== */
-.editDeckForm {
+/*.editDeckForm {
 	margin-top: -25px;
-}
+}*/
 
 .LDsubtitle {
 	margin-bottom: 5px;
 }
+
+.smallOnEdit {
+	font-size: 12px;
+}
+
+
 
 /* ========== PROCESSING MODALS  ========== */
 .processing {

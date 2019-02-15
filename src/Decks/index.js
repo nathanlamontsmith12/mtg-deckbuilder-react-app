@@ -255,7 +255,9 @@ class Decks extends Component {
 	}
 	newDeckModeOff = () => {
 		this.setState({
-			new: false
+			new: false,
+			thisDeck: null,
+			edit: false
 		})
 	}
 	viewDeck = (deckId) => {
@@ -392,7 +394,7 @@ class Decks extends Component {
 		if (this.state.new) {
 			display = 
 				<div className="newDeck">
-					<NewDeck deck={nullDeck} setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
+					<NewDeck history={this.props.history} deck={nullDeck} setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
 				</div>
 		}
 
@@ -404,7 +406,7 @@ class Decks extends Component {
 						<div className="innerLeftDash"> 
 							<button onClick={this.clearEdit} > CLOSE </button>
 							<h2> { this.state.thisDeck.view } </h2>
-							{ <NewDeck edit={true} authData={authData} deck={this.state.thisDeck} /> }
+							{ <NewDeck edit={true} authData={authData} deck={this.state.thisDeck} history={this.props.history} setLogOut={this.props.setLogOut} /> }
 						</div>
 					</div>
 					<div className="rightDash">
