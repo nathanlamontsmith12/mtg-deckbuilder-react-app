@@ -316,6 +316,12 @@ class Decks extends Component {
 			edit: true
 		})
 	}
+	removeFromDeck = (deckId, cardId) => {
+		// OK
+		console.log("REMOVE FROM DECK: ")
+		console.log("DECK ID: ", deckId)
+		console.log("CARD ID: ", cardId)
+	}
 	async componentDidMount(){
 		try {
 			if(!this.authenticate()) {
@@ -377,7 +383,7 @@ class Decks extends Component {
 					</div>
 				</div>
 				<div className="rightDash">
-					{ this.state.thisDeck ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } /> : null }
+					{ this.state.thisDeck ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } removeFromDeck={this.removeFromDeck} authData={authData} getUser={this.getUser} /> : null }
 				</div>
 			</div>
 
@@ -402,8 +408,8 @@ class Decks extends Component {
 					</div>
 					<div className="rightDash">
 						<button onClick={this.clearEdit} > CLOSE </button>
-						{ this.state.thisDeck && !this.state.edit ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } edit={true} /> : null }
-						{ this.state.thisDeck && this.state.edit ? <DeckView deck={this.state.thisDeck} edit={true} /> : null }
+						{ this.state.thisDeck && !this.state.edit ? <DeckView removeFromDeck={this.removeFromDeck} authData={authData} getUser={this.getUser} deck={this.state.thisDeck} clearDeck={this.clearDeck } edit={true} /> : null }
+						{ this.state.thisDeck && this.state.edit ? <DeckView removeFromDeck={this.removeFromDeck} authData={authData} getUser={this.getUser} deck={this.state.thisDeck} edit={true} /> : null }
 					</div>
 				</div> 
 		}
@@ -417,3 +423,4 @@ class Decks extends Component {
 }
 
 export default Decks;
+
