@@ -68,7 +68,8 @@ class Decks extends Component {
 	}
 	clearEdit = () => {
 		this.setState({
-			edit: false
+			edit: false,
+			thisDeck: null
 		})
 	}
 	defaultView = (divId) => {
@@ -365,6 +366,12 @@ class Decks extends Component {
 		// 	list = "Your CardPool"
 		// }
 
+		const nullDeck = {
+			description_short: "",
+			description_long: "",
+			name: ""
+		}
+
 		let display = 
 			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
@@ -385,7 +392,7 @@ class Decks extends Component {
 		if (this.state.new) {
 			display = 
 				<div className="newDeck">
-					<NewDeck setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
+					<NewDeck deck={nullDeck} setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
 				</div>
 		}
 
@@ -397,12 +404,13 @@ class Decks extends Component {
 						<div className="innerLeftDash"> 
 							<button onClick={this.clearEdit} > CLOSE </button>
 							<h2> { this.state.thisDeck.view } </h2>
-							{ <NewDeck edit={true} /> }
+							{ <NewDeck edit={true} authData={authData} deck={this.state.thisDeck} /> }
 						</div>
 					</div>
 					<div className="rightDash">
 						<button onClick={this.clearEdit} > CLOSE </button>
-						{ this.state.thisDeck ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } edit={true} /> : null }
+						{ this.state.thisDeck && !this.state.edit ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } edit={true} /> : null }
+						{ this.state.thisDeck && this.state.edit ? <DeckView deck={this.state.thisDeck} edit={true} /> : null }
 					</div>
 				</div> 
 

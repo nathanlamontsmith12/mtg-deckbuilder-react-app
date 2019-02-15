@@ -237,6 +237,15 @@ footer {
 
 
 
+/* ========== DASHBOARD -- EDIT DECK FORM  ========== */
+.editDeckForm {
+	margin-top: -25px;
+}
+
+.LDsubtitle {
+	margin-bottom: 5px;
+}
+
 /* ========== PROCESSING MODALS  ========== */
 .processing {
 	position: absolute;

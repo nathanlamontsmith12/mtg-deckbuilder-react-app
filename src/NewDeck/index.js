@@ -12,8 +12,11 @@ class NewDeck extends Component {
 			description_short: "",
 			description_long: "",
 			message: "",
-			origDescription: "",
-			processing: false
+			origDescription: props.deck.description_long,
+			processing: false,
+			editName: props.deck.name,
+			editDS: props.deck.description_short,
+			editLS: ""
 		}
 	}
 	closeOut = () => {
@@ -97,7 +100,8 @@ class NewDeck extends Component {
 	}
 
 	editDeck = async () => {
-
+		console.log("EDIT DECK FIRED")
+		// need to update deck
 	}
 	handleInput = (evt) => {
 		this.setState({
@@ -105,27 +109,38 @@ class NewDeck extends Component {
 			message: ""
 		})
 	}
-	componentDidMount(){
-		if (this.props.edit) {
-			// SET A BUNCH OF THE STUFF 
-		}
-	}
 	render(){
+
+		let form = 
+			<form className="newDeckForm">
+				<input name="name" value={this.state.name} onChange={this.handleInput} placeholder="Deck Name" /> <br />
+				<input name="description_short" value={this.state.description_short} onChange={this.handleInput} placeholder="Short description" /> <br />
+				<h4> Long Description: </h4>
+				{ this.state.edit ? <p>{this.state.origDescription} </p> : null }
+				<textarea cols="32" rows="5" name="description_long" value={this.state.description_long} onChange={this.handleInput}> </textarea> <br />
+			</form> 
+
+		if (this.props.edit) {
+			form = 
+				<form className="editDeckForm">
+					<input name="editName" value={this.state.editName} onChange={this.handleInput} /> <br />
+					<input name="editDS" value={this.state.editDS} onChange={this.handleInput} /> <br />
+					<h4 className="LDsubtitle"> Long Description: </h4>
+					{ this.state.edit ? <p>{this.state.origDescription} </p> : null }
+					<textarea cols="32" rows="5" name="editLS" value={this.state.description_long} onChange={this.handleInput}> </textarea> <br />
+				</form> 	
+		}
 		return (
 			<div className="newDeckPage"> 
-				<br />
-				<br />
-				<button onClick={this.closeOut}> CLOSE </button> <br />
-				<h1>NEW DECK</h1>
+				{ !this.props.edit ? <br /> : null }
+				{ !this.props.edit ? <br /> : null }
+				{ !this.props.edit ? <button onClick={this.closeOut}> CLOSE </button> : null }
+				{ this.state.edit ? <button onClick={this.editDeck}> SAVE CHANGES </button> : null }
+				{ this.props.edit ? <h1> EDIT {this.props.deck.name} </h1> : <h1>NEW DECK</h1>}
 				{ this.state.message ? <h3>{this.state.message}</h3> : <h3>&nbsp;</h3> }
-				<form className="newDeckForm">
-					<input name="name" value={this.state.name} onChange={this.handleInput} placeholder="Deck Name" /> <br />
-					<input name="description_short" value={this.state.description_short} onChange={this.handleInput} placeholder="Short description" /> <br />
-					<h4> Long Description: </h4>
-					{ this.state.edit ? <p>{this.state.origDescription} </p> : null }
-					<textarea cols="32" rows="5" name="description_long" value={this.state.description_long} onChange={this.handleInput}> </textarea> <br />
-				</form> <br />
-				{ this.state.edit ? <button onClick={this.editDeck}> SAVE CHANGES </button> : <button onClick={this.createDeck}> CREATE NEW DECK </button> }
+				{ form }
+				<br />
+				{ !this.state.edit ? <button onClick={this.createDeck}> CREATE NEW DECK </button> : null }
 			</div>
 		)
 	}
