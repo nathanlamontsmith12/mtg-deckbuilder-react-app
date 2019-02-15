@@ -11,7 +11,7 @@ const DeckList = (props) => {
 					<h4>{deck.name}</h4>
 					<button onClick={props.viewDeck.bind(this, deck._id) }> VIEW </button> &nbsp; &nbsp; 
 					<button onClick={props.editDeck.bind(this, deck._id) }> EDIT </button> <br />
-					<span><strong>{ deck.description_short }</strong></span>
+					<span>{ deck.description_short }</span>
 				</li>
 			)
 		})

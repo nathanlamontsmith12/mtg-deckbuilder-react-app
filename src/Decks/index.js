@@ -251,14 +251,57 @@ class Decks extends Component {
 			new: false
 		})
 	}
-	viewDeck = (deck) => {
+	viewDeck = (deckId) => {
 
+		// set opacity 1 on previous div: 
+		const lastDiv = document.getElementById(this.state.thisDeck._id);
+		lastDiv.style.opacity="1";
+
+		// opacity 0.3 on div: 
+		const deckDiv = document.getElementById(deckId);
+		deckDiv.style.opacity = "0.3";
+
+		// find deck 
+		const deck = this.state.decks.find((deck)=>{
+			if (deck._id === deckId) {
+				return true
+			} else {
+				return false 
+			}
+		})
+
+		//set state to focus on this deck: 
+
+		this.setState({
+			thisDeck: deck
+		})
 	}
-	clearDeck = () => {
+	clearDeck = (deckId) => {
 
+		// opacity 1 on div: 
+		const deckDiv = document.getElementById(deckId)
+		deckDiv.style.opacity = "1"
+
+		this.setState({
+			thisDeck: null
+		})
 	}
-	editDeck = () => {
+	editDeck = (deckId) => {
 
+		// find deck 
+		const deck = this.state.decks.find((deck)=>{
+			if (deck._id === deckId) {
+				return true
+			} else {
+				return false 
+			}
+		})
+
+		// set state to focus on deck WITH edit mode active: 
+		this.setState({
+			thisDeck: deck,
+			edit: true
+		})
 	}
 	async componentDidMount(){
 		try {
@@ -292,10 +335,6 @@ class Decks extends Component {
 			userId: this.state.userId,
 		}
 
-
-
-
-
 		let procStyle = null;
 
 		if (this.state.processing) {
@@ -322,15 +361,15 @@ class Decks extends Component {
 			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
 					<UserNav />
-					<div className="deckLeftCon"> 
-						<h2> Your Decks </h2>
+					<div className="innerLeftDash"> 
+						<h2> YOUR DECKS </h2>
 						{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
 						<button onClick={this.newDeckModeOn} > New Deck </button>
-						{ !this.state.thisDeck && !this.state.new ? <DeckList decks={this.state.decks} viewDeck={this.viewDeck} editDeck={this.editDeck} /> : null }
+						<DeckList decks={this.state.decks} viewDeck={this.viewDeck} editDeck={this.editDeck} />
 					</div>
 				</div>
 				<div className="rightDash">
-					{ this.state.thisDeck && !this.state.new ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } /> : null }
+					{ this.state.thisDeck ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } /> : null }
 				</div>
 			</div>
 
@@ -341,6 +380,11 @@ class Decks extends Component {
 					<NewDeck setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
 				</div>
 		}
+
+		// if (this.state.edit) {
+		// 	display = {...}
+		// { this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
+		// }
 
 		return (
 			<div>

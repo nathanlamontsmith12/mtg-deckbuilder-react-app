@@ -226,7 +226,7 @@ class Dashboard extends Component {
 			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
 					<UserNav />
-					<div className="searchDash">
+					<div className="innerLeftDash">
 						<Search passResultsUp={this.passResultsUp} authData={authData} viewBtns={true} viewLow={false} priors={priors} addToCardSheet={this.addToCardSheet} />
 					</div>
 				</div>

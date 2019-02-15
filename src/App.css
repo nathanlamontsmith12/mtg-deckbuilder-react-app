@@ -204,30 +204,20 @@ footer {
 
 
 
-/* ========== DASHBOARD -- SEARCH  ========== */
-.searchDash {
+/* ========== DASHBOARD -- INNER LEFT  ========== */
+.innerLeftDash {
 	border: 1px black solid;
 	height: calc(100% - 120px);
 	margin-top: 20px;
 }
 
-.searchDash > * {
+.innerLeftDash > * {
 	margin-left: 20px;
 }
 
 
 
 /* ========== DASHBOARD -- CARDS  ========== */
-.cardPool {
-	border: 1px black solid;
-	height: calc(100% - 120px);
-	margin-top: 20px;
-}
-
-.cardPool h2 {
-	margin-left: 20px;
-}
-
 .separate {
 	display: flex;
 	justify-content: space-between;
@@ -241,16 +231,9 @@ footer {
 
 
 
-/* ========== DASHBOARD -- DECKS  ========== */
-.deckList {
-	border: 1px black solid;
-	height: calc(100% - 120px);
-	margin-top: 20px;
-}
 
-.deckList h2 {
-	margin-left: 20px;
-}
+/* ========== DASHBOARD -- DECKS  ========== */
+
 
 
 

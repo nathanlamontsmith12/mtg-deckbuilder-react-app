@@ -217,7 +217,7 @@ class Cards extends Component {
 			<div id="dashboard" style={procStyle}>
 				<div className="leftDash">
 					<UserNav />
-					<div className="cardPool">
+					<div className="innerLeftDash">
 						<h2> YOUR CARDPOOL </h2>
 						{ this.state.cardpool ? <CardSheet cardpoolDash={true} deleteCard={this.deleteCard} short={true} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
 					</div>
