@@ -79,6 +79,8 @@ class Cards extends Component {
 
 		try {
 
+			this.defaultView(apid);
+
 			this.setState({
 				processing: true
 			})

@@ -1,6 +1,6 @@
 import React from "react";
-import CardSheet from "../CardSheet";
-import DeckCardDisplay from "../DeckCardDisplay";
+// import CardSheet from "../CardSheet";
+// import DeckCardDisplay from "../DeckCardDisplay";
 
 const DeckView = (props) => {
 

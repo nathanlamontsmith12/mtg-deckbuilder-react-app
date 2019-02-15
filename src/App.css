@@ -285,8 +285,15 @@ footer {
 	margin: auto, auto;
 	z-index: -1;
 	opacity: 0.3;
+/*	pointer-events: none;*/
 }
 
+/* for some reason, this doesn't work to disable the pointer events. Hmmm... */
+
+/*.processing * {
+	pointer-events: none;
+}
+*/
 
 
 /* ========== MEDIA QUERIES  ========== */

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserNav from "../UserNav";
 import DeckList from "../DeckList";
 import DeckView from "../DeckView";
-import CardSheet from "../CardSheet";
+// import CardSheet from "../CardSheet";
 import NewDeck from "../NewDeck";
 import CardView from "../CardView";
 
@@ -363,7 +363,7 @@ class Decks extends Component {
 			}
 		}
 
-		const newDeckAccess = true;
+		// const newDeckAccess = true;
 
 		const nullDeck = {
 			description_short: "",
