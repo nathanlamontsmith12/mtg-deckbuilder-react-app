@@ -113,6 +113,21 @@ footer {
 
 
 
+/* ========== About ========== */
+#about-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 40vh;
+}
+
+#about-text p {
+	display: block;
+	margin: 5px;
+}
+
+
+
 /* ========== Card SHEET ========== */
 .cardSheet {
 	position: relative;

@@ -87,7 +87,7 @@ class App extends Component {
 							/>
 							<Route 
 								exact path="/about"
-								render={ (props) => <About {...props} /> }
+								render={ (props) => <About {...props} authData={authData} /> }
 							/>
 							<Route 
 								component = { My404 } 
