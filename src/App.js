@@ -11,6 +11,7 @@ import Authorization from "./Authorization";
 import Dashboard from "./Dashboard";
 import Cards from "./Cards";
 import Decks from "./Decks";
+import About from "./About";
 
 
 // Change this later for more elegant 404 error handling 
@@ -83,6 +84,10 @@ class App extends Component {
 							<Route 
 								exact path="/cards"
 								render={ (props) => <Cards {...props} authData={authData} setLogOut={this.setLogOut} /> } 
+							/>
+							<Route 
+								exact path="/about"
+								render={ (props) => <About {...props} /> }
 							/>
 							<Route 
 								component = { My404 } 

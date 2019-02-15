@@ -5,6 +5,8 @@ const DeckView = (props) => {
 
 	const cards = props.deck.cards;
 
+// NEED TO INTEGRATE EDIT FUNCTIONALITY VIA PROPS BOOLEAN
+
 	return (
 		<div> 
 			<button onClick={props.clearDeck.bind(this, props.deck._id)}>X</button>

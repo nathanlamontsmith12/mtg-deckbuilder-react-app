@@ -6,7 +6,7 @@ const LoginForm = (props) => {
 
 	const regForm = 
 		<div>
-			<h1>NEW ACCOUNT</h1>
+			<h2>NEW ACCOUNT</h2>
 			<form />
 				<input type="text" name="username" value={props.data.username} onChange={props.handleUserInput} placeholder="Username" />
 				<br />
@@ -22,7 +22,7 @@ const LoginForm = (props) => {
 
 	const logForm = 
 		<div>
-			<h1>LOG IN</h1>
+			<h2>LOG IN</h2>
 			<input type="text" name="username" value={props.data.username} onChange={props.handleUserInput} placeholder="Enter your username" /> 
 			<br />
 			<input type="password" name="password" value={props.data.password} onChange={props.handleUserInput} placeholder="Enter your password" /> 

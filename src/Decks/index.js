@@ -66,6 +66,11 @@ class Decks extends Component {
 			return true
 		}
 	}
+	clearEdit = () => {
+		this.setState({
+			edit: false
+		})
+	}
 	defaultView = (divId) => {
 
 		// adjust for fact that these divs have the ID "short-" + id: 
@@ -381,10 +386,25 @@ class Decks extends Component {
 				</div>
 		}
 
-		// if (this.state.edit) {
-		// 	display = {...}
-		// { this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
-		// }
+		if (this.state.edit) {
+			display = 
+				<div id="dashboard" style={procStyle}>
+					<div className="leftDash">
+						<UserNav />
+						<div className="innerLeftDash"> 
+							<button onClick={this.clearEdit} > CLOSE </button>
+							<h2> { this.state.thisDeck.view } </h2>
+							{ <NewDeck edit={true} /> }
+						</div>
+					</div>
+					<div className="rightDash">
+						<button onClick={this.clearEdit} > CLOSE </button>
+						{ this.state.thisDeck ? <DeckView deck={this.state.thisDeck} clearDeck={this.clearDeck } edit={true} /> : null }
+					</div>
+				</div> 
+
+		}
+//		{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
 
 		return (
 			<div>

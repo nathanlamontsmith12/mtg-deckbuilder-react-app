@@ -218,18 +218,19 @@ class Authorization extends Component {
 		const notLoggedIn =	
 			<div>
 				{ this.state.inputFailMessage ? <h1> {this.state.inputFailMessage} </h1> : <h1> &nbsp; </h1> }
-				{ this.state.reg ? <button onClick={this.loginView}> Already Have Account? </button> : <button onClick={this.regView}> Make New Accout </button> }
+				{ this.state.reg ? <button onClick={this.loginView}> Log In to Existing Account </button> : <button onClick={this.regView}> Make New Accout </button> }
 				{ this.state.processing ? <h2> Logging in.... </h2> : <LoginForm data={this.state} handleUserInput={this.handleUserInput} logIn={this.logIn} createNewAccount={this.createNewAccount} />}
 			</div>
 
 		const loggedIn = 
 			<div>
-				<h1>Logged In</h1>
+				<h2>Logged In</h2>
 				<h3> You are logged in as {this.props.authData.loggedInAs} </h3>
 			</div>
 
 		return (
 			<div>
+				<h1> AUTHENTICATION </h1>
 				{ this.props.authData.loggedIn ? loggedIn : notLoggedIn }
 				<div className="spacerAuth"></div>
 			</div>
