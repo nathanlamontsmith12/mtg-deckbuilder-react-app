@@ -148,10 +148,73 @@ class NewDeck extends Component {
 				description_long: DL
 			})
 
-			console.log("reqBody SENT: ", reqBody)
-
 			const response = await fetch(URL, {
 				method: "PATCH",
+				credentials: "include",
+				body: reqBody,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+
+			// close stuff out 
+			this.closeOut();
+
+			this.props.clearEdit();
+
+		} catch (err) {
+			alert("Error: " + err);
+
+			this.setState({
+				processing: false	
+			})
+			console.log(err)
+			this.props.setLogOut();
+			this.props.history.push("/auth");
+		}
+	}
+	deleteDeck = async () => {
+
+		try {
+
+			this.setState({
+				message: ""
+			})
+			// update deck in DB, then close out
+
+			// but first, check to make sure the name is reasonable: 
+			if (!this.state.editName || this.state.editName.length > 15) {
+				this.setState({
+					message: "Invalid Deck Name: Empty field, or Over 15 characters",
+					editName: this.props.deck.name
+				})
+				return
+			} 
+
+			if (this.state.editDS.length > 40) {
+				this.setState({
+					message: "Invalid Short Description: Over 40 characters",
+					editDS: this.props.deck.description_short
+				})
+				return
+			} 
+
+			this.setState({
+				processing: true
+			})
+
+			const URL = process.env.REACT_APP_SERVER_URL + "deck/delete/" + this.props.deck._id.toString();
+
+			const reqBody = JSON.stringify({
+				userId: this.state.userId
+			})
+
+			const response = await fetch(URL, {
+				method: "DELETE",
 				credentials: "include",
 				body: reqBody,
 				headers: {
@@ -193,6 +256,12 @@ class NewDeck extends Component {
 			messageClass = "smallOnEdit"
 		}
 
+		let processing = "newDeckPage";
+
+		if (this.state.processing) {
+			processing = "processing"
+		}
+
 		let form = 
 			<form className="newDeckForm">
 				<input name="name" value={this.state.name} onChange={this.handleInput} placeholder="Deck Name" /> <br />
@@ -213,11 +282,12 @@ class NewDeck extends Component {
 				</form> 	
 		}
 		return (
-			<div className="newDeckPage"> 
+			<div className={processing} > 
 				{ !this.props.edit ? <br /> : null }
 				{ !this.props.edit ? <br /> : null }
 				{ !this.props.edit ? <button onClick={this.closeOut}> CLOSE </button> : null }
-				{ this.state.edit ? <button onClick={this.editDeck}> SAVE CHANGES </button> : null }
+				{ this.state.edit ? <button onClick={this.editDeck}> SAVE CHANGES </button> : null } 
+				{ this.state.edit ? <button className="deckDeleteBtn" onClick={this.deleteDeck}> DELETE THIS DECK </button> : null }
 				{ this.props.edit ? <h1> EDIT {this.props.deck.name} </h1> : <h1>NEW DECK</h1>}
 				{ this.state.message ? <h3 className={messageClass}>{this.state.message}</h3> : <h3 className={messageClass}>&nbsp;</h3> }
 				{ form }

@@ -221,6 +221,12 @@ class Authorization extends Component {
 	}
 	render(){
 
+		let loadingClass = "";
+
+		if (this.state.processing) {
+			loadingClass = "processing"
+		}
+
 		const notLoggedIn =	
 			<div>
 				{ this.state.inputFailMessage ? <h1> {this.state.inputFailMessage} </h1> : <h1> &nbsp; </h1> }
@@ -235,7 +241,7 @@ class Authorization extends Component {
 			</div>
 
 		return (
-			<div>
+			<div className={loadingClass}>
 				<h1> AUTHENTICATION </h1>
 				{ this.props.authData.loggedIn ? loggedIn : notLoggedIn }
 				<div className="spacerAuth"></div>

@@ -257,12 +257,18 @@ footer {
 	font-size: 12px;
 }
 
+.deckDeleteBtn {
+	margin-left: 100px;
+}
+
 
 
 /* ========== PROCESSING MODALS  ========== */
 .processing {
 	position: absolute;
 	margin: auto, auto;
+	z-index: -1;
+	opacity: 0.3;
 }
 
 
