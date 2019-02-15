@@ -13,6 +13,10 @@ class AddToDeck extends Component {
 
 		evt.preventDefault();
 
+		if (!this.state.targetDeckId) {
+			return 
+		}
+
 		const targetDeckId = this.state.targetDeckId;
 
 		this.setState({
