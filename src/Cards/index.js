@@ -187,6 +187,48 @@ class Cards extends Component {
 			return err	
 		}
 	}
+	addToDeck = async (deckId, cardApid) => {
+
+		try {
+
+			this.setState({
+				processing: true
+			})
+
+			const URL = process.env.REACT_APP_SERVER_URL + "deck/";
+
+			const reqBody = JSON.stringify({
+				userId: this.state.userId, 
+				cardApid: cardApid,
+				deckId: deckId
+			})
+
+			// put cards into dat deck 
+			const response = await fetch(URL, {
+				method: "PUT",
+				credentials: "include",
+				body: reqBody,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
+
+			await this.getUser();
+
+		} catch (err) {
+			alert("Error - failed to load user data");
+			this.props.setLogOut();
+			this.props.history.push("/auth")
+			this.setState({
+				processing: false	
+			})
+		}
+
+	}
 	render(){
 
 		const cards = this.state.cardpool.map((card)=>{
@@ -219,7 +261,7 @@ class Cards extends Component {
 					<UserNav />
 					<div className="innerLeftDash">
 						<h2> YOUR CARDPOOL </h2>
-						{ this.state.cardpool ? <CardSheet cardpoolDash={true} deleteCard={this.deleteCard} short={true} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
+						{ this.state.cardpool ? <CardSheet deckList={this.state.decks} addToDeck={this.addToDeck} cardpoolDash={true} deleteCard={this.deleteCard} short={true} viewBtns={true} searched={true} cards={cards} viewCard={this.viewCard} /> : null }
 					</div>
 				</div>
 				<div className="rightDash">

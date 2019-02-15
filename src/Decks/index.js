@@ -359,17 +359,6 @@ class Decks extends Component {
 
 		const newDeckAccess = true;
 
-		// SOME STUFF: could make it false
-
-		console.log(this.state)
-
-
-		// let list = "Your Decks";
-
-		// if (!this.state.thisDeck && !this.state.new) {
-		// 	list = "Your CardPool"
-		// }
-
 		const nullDeck = {
 			description_short: "",
 			description_long: "",
@@ -419,8 +408,6 @@ class Decks extends Component {
 				</div> 
 		}
 
-//		{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
-
 		return (
 			<div>
 				{ display }
@@ -430,30 +417,3 @@ class Decks extends Component {
 }
 
 export default Decks;
-
-
-
-
-		// let display = 
-		// 	<div id="dashboard" style={procStyle}>
-		// 		<div className="leftDash">
-		// 			<UserNav />
-		// 			<div className="deckList"> 
-		// 				{ this.state.thisDeck ? <h2> {this.state.thisDeckName} </h2> : <h2> {list} </h2> }
-		// 				{ newDeckAccess ? <button onClick={this.newDeckModeOn} > New Deck </button> : <button disabled={true}> New Deck </button> }
-		// 				{ !this.state.thisDeck && !this.state.new ? <CardSheet deck={true} viewBtns={true} searched={true} cards={this.state.cardpool} viewCard={null} /> : null }
-		// 				{ this.state.thisDeck && !this.state.new ? <DeckView /> : null }
-		// 			</div>
-		// 		</div>
-		// 		<div className="rightDash">
-		// 			{ this.state.thisDeck ? <CardSheet viewBtns={false} searched={true} cards={this.state.thisDeck} viewCard={null} /> : null }
-		// 		</div>
-		// 	</div>
-
-		// if (this.state.new) {
-		// 	display = 
-		// 		<div className="newDeck">
-		// 			<NewDeck setLogOut={this.props.setLogOut} edit={false} newDeckModeOff={this.newDeckModeOff} setDeck={this.setDeck} authData={authData} />
-		// 		</div>
-		// }
-

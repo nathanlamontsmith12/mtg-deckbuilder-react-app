@@ -1,12 +1,13 @@
 import React from "react";
+import AddToDeck from "../AddToDeck";
 
 const CardSheet = (props) => {
-
 	let cards = <p>&nbsp;</p>
 
 	if (!props.cards) {
 		return (<div> </div>)
 	} else {
+
 		if (props.cards.length > 0) {
 			cards = props.cards.map((card, i)=>{
 
@@ -67,6 +68,14 @@ const CardSheet = (props) => {
 				}
 
 
+				let showDeckList = false;
+
+				if (props.deckList) {
+					if (props.deckList.length > 0) {
+						showDeckList = true;
+					}
+				}
+
 				if (props.cardpoolDash) {
 					return (
 						<li className="listCardCon" key={`card-${i}`} id={idName} >
@@ -76,6 +85,7 @@ const CardSheet = (props) => {
 							</div>
 							<div className="separate">
 								{ props.viewBtns ? <button onClick={onClickForViewButtons}>View</button> : null}
+								{ showDeckList ? <AddToDeck deckList={props.deckList} addToDeck={props.addToDeck} cardApid={card.id} /> : null }
 								{ props.deleteCard ? <button onClick={props.deleteCard.bind(this, card.id)}>Delete</button> : null }
 							</div>
 						</li>
