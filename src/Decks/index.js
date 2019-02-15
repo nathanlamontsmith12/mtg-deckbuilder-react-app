@@ -245,7 +245,7 @@ class Decks extends Component {
 		this.setState({
 			thisDeck: deckToSet,
 			thisDeckName: deckToSet.name,
-			edit: true,
+			edit: false,
 			new: false,
 			processing: false
 		}) 
@@ -417,8 +417,8 @@ class Decks extends Component {
 						{ this.state.thisDeck && this.state.edit ? <DeckView deck={this.state.thisDeck} edit={true} /> : null }
 					</div>
 				</div> 
-
 		}
+
 //		{ this.state.view ? <CardView defaultView={this.defaultView} view={this.state.view} authData={authData} viewLow={false} /> : null }
 
 		return (

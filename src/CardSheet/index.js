@@ -53,11 +53,19 @@ const CardSheet = (props) => {
 					}
 				}
 
-				let onClickForViewButtons = props.viewCard.bind(null, card.id);
 
-				if (props.deckId) {
-					onClickForViewButtons = props.viewCard.bind(null, card.id, props.deckId);
+				let onClickForViewButtons = () => {};
+
+
+				if (props.viewBtns) {
+					
+					onClickForViewButtons = props.viewCard.bind(null, card.id);
+
+					if (props.deckId) {
+						onClickForViewButtons = props.viewCard.bind(null, card.id, props.deckId);
+					}
 				}
+
 
 				if (props.cardpoolDash) {
 					return (
