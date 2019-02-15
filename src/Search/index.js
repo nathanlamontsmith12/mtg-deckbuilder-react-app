@@ -156,7 +156,7 @@ class Search extends Component {
 
 		const searchBar = 
 			<div>
-				<h1>SEARCH FOR CARDS BY NAME</h1>
+				<h1>SEARCH FOR CARDS</h1>
 				<input name="query" value={this.state.query} onChange={this.handleQueryInput} />
 				<button onClick={this.submitSearch}>Search</button>
 				<br />

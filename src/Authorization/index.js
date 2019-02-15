@@ -40,7 +40,8 @@ class Authorization extends Component {
 	}
 	handleUserInput = (evt) => {
 		this.setState({
-			[evt.currentTarget.name]: evt.currentTarget.value
+			[evt.currentTarget.name]: evt.currentTarget.value,
+			inputFailMessage: ""
 		})
 	}
 	fail = (failMessage, viewType) => {

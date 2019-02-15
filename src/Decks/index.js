@@ -242,6 +242,7 @@ class Decks extends Component {
 		this.setState({
 			thisDeck: deckToSet,
 			thisDeckName: deckToSet.name,
+			edit: true,
 			new: false,
 			processing: false
 		}) 
@@ -258,9 +259,11 @@ class Decks extends Component {
 	}
 	viewDeck = (deckId) => {
 
-		// set opacity 1 on previous div: 
-		const lastDiv = document.getElementById(this.state.thisDeck._id);
-		lastDiv.style.opacity="1";
+		// set opacity 1 on previous div IF THERE IS ONE: 
+		if (this.state.thisDeck) {
+			const lastDiv = document.getElementById(this.state.thisDeck._id);
+			lastDiv.style.opacity="1";
+		}
 
 		// opacity 0.3 on div: 
 		const deckDiv = document.getElementById(deckId);
